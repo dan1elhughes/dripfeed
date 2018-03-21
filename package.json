@@ -1,18 +1,23 @@
 {
-  "name": "hyperapp-one",
-  "version": "1.0.0",
+  "name": "perboard",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --port 3000",
     "build": "webpack --env production",
-    "wipe": "rm -rf .git && git init && git add . && git commit -m 'initial commit'",
-    "test": "jest --coverage --no-cache"
+    "lint": "eslint --ignore-path .gitignore .",
+    "server": "node server"
   },
-  "author": "Regis Boudinot (selfup)",
-  "license": "MIT",
+  "author": "Dan Hughes",
+  "license": "ISC",
   "dependencies": {
-    "hyperapp": "^1.1.2"
+    "@koa/cors": "^2.2.1",
+    "axios": "^0.18.0",
+    "hyperapp": "^1.1.2",
+    "koa": "^2.5.0",
+    "koa-router": "^7.4.0",
+    "koa-static": "^4.0.2"
   },
   "devDependencies": {
     "babel-cli": "^6.22.2",
@@ -22,9 +27,9 @@
     "babel-plugin-transform-react-jsx": "^6.22.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-es2015": "^6.22.0",
+    "babel-preset-stage-2": "^6.24.1",
     "css-loader": "^0.28.11",
     "eslint": "^4.19.0",
-    "eslint-config-airbnb-base": "^12.0.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jest": "^21.15.0",
     "eslint-plugin-react": "^7.7.0",
