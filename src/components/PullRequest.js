@@ -1,6 +1,6 @@
 import { h } from 'hyperapp';
 
-export default ({ title, instance, author, reviewers, repo, from, to, created }) => <div>
+export default ({ title, instance, author, reviewers, repo, from, to, created }) => <div class='PullRequest'>
 	<h2>Pull request</h2>
 	<p>Title: {title}</p>
 	<p>Instance: {instance}</p>
@@ -10,4 +10,5 @@ export default ({ title, instance, author, reviewers, repo, from, to, created })
 	<p>From: {from}</p>
 	<p>To: {to}</p>
 	<p>Created: {created}</p>
+	<hr/>
 </div>;

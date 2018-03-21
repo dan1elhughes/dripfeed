@@ -5,17 +5,7 @@ import Ticket from './Ticket';
 
 export default ({ pullRequests, tickets }) => (
 	<div>
-		{pullRequests.map(pr => (
-			<div>
-				<PullRequest {...pr} />
-				<hr/>
-			</div>
-		))}
-		{tickets.map(pr => (
-			<div>
-				<Ticket {...pr} />
-				<hr/>
-			</div>
-		))}
+		{pullRequests.map(pr => <PullRequest {...pr} />)}
+		{tickets.map(ticket => <Ticket {...ticket} />)}
 	</div>
 );
