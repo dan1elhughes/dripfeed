@@ -39,7 +39,11 @@ export default class Jira {
 			key: issue.key,
 			priority: issue.fields.priority.name,
 			status: issue.fields.status.name,
-			reporter: issue.fields.reporter.displayName,
+			reporter: {
+				name: issue.fields.reporter.name,
+				displayName: issue.fields.reporter.displayName,
+				photo: `${this.base}/secure/useravatar?ownerId=${issue.fields.reporter.name}`,
+			},
 			type: issue.fields.issuetype.name,
 			project: issue.fields.project.key,
 			summary: issue.fields.summary,

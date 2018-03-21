@@ -27,8 +27,16 @@ export default class Bitbucket {
 		}).then(({ values }) => values.map(pr => ({
 			instance: this.instance,
 			title: pr.title,
-			author: pr.author.user.displayName,
-			reviewers: pr.reviewers.map(r => `${this.base}/users/${r.user.name}/avatar.png?s=128`),
+			author: {
+				name: pr.author.user.name,
+				displayName: pr.author.user.displayName,
+				photo: `${this.base}/users/${pr.author.user.name}/avatar.png?s=128`,
+			},
+			reviewers: pr.reviewers.map(r => ({
+				name: r.user.name,
+				displayName: r.user.displayName,
+				photo: `${this.base}/users/${r.user.name}/avatar.png?s=128`,
+			})),
 			repo: `${pr.toRef.repository.project.key}/${pr.toRef.repository.slug}`,
 			from: pr.fromRef.displayId,
 			to: pr.toRef.displayId,
