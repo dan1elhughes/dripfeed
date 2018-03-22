@@ -16,6 +16,7 @@ module.exports = function webpackStuff(env) {
 	if (env === 'production') plugins.push(new MinifyPlugin());
 
 	return {
+		devtool: 'source-map',
 		entry: [
 			'./src/index.js',
 			'./styles/app.css',

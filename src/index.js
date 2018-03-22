@@ -2,7 +2,10 @@ import { app } from 'hyperapp';
 import actions from './actions';
 import state from './state';
 import view from './views/homeView';
-import settings from './settings';
+// import settings from './settings';
+
+// window.localStorage.setItem('dripfeed-settings', JSON.stringify(settings));
+const settings = JSON.parse(window.localStorage.getItem('dripfeed-settings' || '[]'));
 
 const application = app(state, actions, view, document.body);
 

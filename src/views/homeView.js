@@ -1,7 +1,11 @@
 import { h } from 'hyperapp';
 
-import List from '../components/List';
+import Dump from '../components/Dump';
+import SettingsPanelView from './SettingsPanelView';
 
 export default state => (
-	<List {...state} />
+	<div>
+		<SettingsPanelView accounts={state.accounts} onChange={console.log.bind(console)} />
+		<Dump state={state.accounts} />
+	</div>
 );

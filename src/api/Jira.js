@@ -10,10 +10,10 @@ https://bitbucket.mirum.agency
  */
 
 export default class Jira {
-	constructor({ instance, base, username, password, filter }) {
-		this.instance = instance;
+	constructor({ name, endpoint, username, password, filter }) {
+		this.instance = name;
 		this.filter = filter;
-		this.base = base;
+		this.base = endpoint;
 		this.auth = btoa(`${username}:${password}`);
 	}
 

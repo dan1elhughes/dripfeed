@@ -5,16 +5,16 @@ const map = fn => arr => arr.map(fn);
 
 export default {
 	boot: settings => (state, actions) => {
-		for (const instance in settings.bitbucket) {
-			const [ base, username, password ] = settings.bitbucket[instance];
-			actions.fetchPRs({ instance, base, username, password });
-		}
+		actions.loadAccounts(settings);
+	},
 
-		const { filter, ...jiras } = settings.jira;
-		for (const instance in jiras) {
-			const [ base, username, password ] = settings.jira[instance];
-			actions.fetchTickets({ filter, instance, base, username, password });
-		}
+	loadAccounts: accounts => (state, actions) => {
+		accounts.forEach(account => {
+			if (account.type === 'bitbucket') actions.fetchPRs(account);
+			if (account.type === 'jira') actions.fetchTickets(account);
+		});
+
+		return { accounts };
 	},
 
 	fetchTickets: settings => (state, actions) => new JiraConnector(settings).tickets().then(map(actions.addTicket)),
@@ -22,4 +22,9 @@ export default {
 
 	addTicket: ticket => state => ({ tickets: [...state.tickets, ticket] }),
 	addPR: pr => state => ({ pullRequests: [...state.pullRequests, pr] }),
+
+	onSettingChange: ({ account, field, value }) => state => {
+		console.log(state);
+		// const { settings } = state;
+	},
 };

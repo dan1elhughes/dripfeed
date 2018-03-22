@@ -1,7 +1,7 @@
 export default class Bitbucket {
-	constructor({ instance, base, username, password }) {
-		this.instance = instance;
-		this.base = base;
+	constructor({ name, endpoint, username, password }) {
+		this.instance = name;
+		this.base = endpoint;
 		this.auth = btoa(`${username}:${password}`);
 	}
 
