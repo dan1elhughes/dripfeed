@@ -1,0 +1,12 @@
+.react-grid-item {
+  background: #24282F;
+  border-radius: 5px;
+  color: #FFFFFF;
+  padding: 10px;
+}
+
+.react-grid-item.react-grid-placeholder {
+  background: none;
+  border: 2px dashed #FFFFFF;
+  opacity: 1;
+}

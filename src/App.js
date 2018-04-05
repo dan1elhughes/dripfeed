@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import bindMethods from 'yaab';
 import styled from 'styled-components';
 
@@ -9,9 +10,13 @@ import LocationTile from './components/LocationTile/LocationTile';
 import OutTile from './components/OutTile/OutTile';
 import Tasks from './components/Tasks/Tasks';
 import Tile from './components/Tile/Tile';
+import MyFirstGrid from './containers/GridLayout/GridLayout.js';
 
+import './base.css';
 import './App.css';
 import 'weathericons/css/weather-icons.min.css';
+import 'react-grid-layout/css/styles.css';
+import 'react-resizable/css/styles.css';
 
 import { colour } from './styles/variables';
 
@@ -71,6 +76,7 @@ export default class App extends Component {
 					<Tile component={Tasks} settings={settings} />
 					<Tile component={OutTile} />
 				</StyledContainer>
+				<MyFirstGrid />
 			</div>
 		);
 	}
