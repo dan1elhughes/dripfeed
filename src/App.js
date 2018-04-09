@@ -3,6 +3,7 @@ import bindMethods from 'yaab';
 import Store from './Store';
 import JiraConnector from './api/Jira';
 import LocationTile from './components/LocationTile/LocationTile';
+import Tasks from './components/Tasks/Tasks';
 import './App.css';
 import 'weathericons/css/weather-icons.min.css';
 
@@ -59,14 +60,14 @@ export default class App extends Component {
 	}
 
 	render() {
+		const { issues } = this.state;
+
 		return (
 			<div className="App" style={{ backgroundColor: '#1A1F25' }}>
 				{offices.map(office => (
 					<LocationTile key={office.name} office={office} />
 				))}
-				<pre>
-					<code>{JSON.stringify(this.state, null, 4)}</code>
-				</pre>
+				<Tasks issues={issues} />
 			</div>
 		);
 	}
