@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
 import bindMethods from 'yaab';
+import styled from 'styled-components';
+
 import Store from './Store';
-import JiraConnector from './api/Jira';
+import auth from './auth';
+
 import LocationTile from './components/LocationTile/LocationTile';
+import OutTile from './components/OutTile/OutTile';
 import Tasks from './components/Tasks/Tasks';
 import Tile from './components/Tile/Tile';
+
 import './App.css';
 import 'weathericons/css/weather-icons.min.css';
 
 import { colour } from './styles/variables';
 
-const filter =
-	'assignee = currentUser() AND resolution is EMPTY ORDER BY priority DESC, updated DESC';
+const StyledContainer = styled.div`
+	background-color: ${colour.background.fill};
+`;
 
 const store = new Store();
 
@@ -30,19 +36,13 @@ const offices = [
 	},
 ];
 
-// store.set('settings', {
-// 	auth: {
-// 		base: 'FILL THIS IN',
-// 		name: 'FILL THIS IN',
-// 		username: 'FILL THIS IN',
-// 		password: 'FILL THIS IN',
-// 	},
-// });
+store.set('settings', auth);
 
 export default class App extends Component {
 	static get initialState() {
 		return {
 			issues: [],
+			settings: [],
 		};
 	}
 
@@ -53,24 +53,24 @@ export default class App extends Component {
 	}
 
 	componentDidMount() {
-		const jira = new JiraConnector(store.get('settings').auth);
-		jira.tickets(filter).then(issues =>
-			this.setState({
-				issues,
-				settings: store.get('settings'),
-			})
-		);
+		const settings = store.get('settings');
+		this.setState({
+			settings,
+		});
 	}
 
 	render() {
-		const { issues } = this.state;
+		const { settings } = this.state;
 
 		return (
-			<div className="App" style={{ backgroundColor: colour.background.fill }}>
-				{offices.map(office => (
-					<Tile key={office.name} component={LocationTile} office={office} />
-				))}
-				<Tile component={Tasks} items={issues} />
+			<div className="App">
+				<StyledContainer>
+					{offices.map(office => (
+						<Tile key={office.name} component={LocationTile} office={office} />
+					))}
+					<Tile component={Tasks} settings={settings} />
+					<Tile component={OutTile} />
+				</StyledContainer>
 			</div>
 		);
 	}

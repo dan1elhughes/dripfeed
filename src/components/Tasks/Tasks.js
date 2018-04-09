@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import bindMethods from 'yaab';
 import styled from 'styled-components';
 
+import JiraConnector from '../../api/Jira';
+
 import Task from '../Task/Task';
 
 const StyledHeader = styled.h2`
@@ -13,7 +15,7 @@ const StyledHeader = styled.h2`
 export default class Tasks extends React.Component {
 	static get propTypes() {
 		return {
-			tasks: PropTypes.arrayOf(
+			items: PropTypes.arrayOf(
 				PropTypes.shape({
 					id: PropTypes.string.isRequired,
 					summary: PropTypes.string.isRequired,
@@ -31,12 +33,41 @@ export default class Tasks extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {};
+		this.state = { items: [] };
 		bindMethods(this);
 	}
 
+	async componentWillReceiveProps(nextProps) {
+		const { settings } = nextProps;
+
+		const tasks = await Promise.all(
+			settings.map(auth => {
+				if (auth.type === 'jira') {
+					return new JiraConnector(auth).tickets(
+						'assignee = currentUser() AND resolution is EMPTY'
+					);
+				}
+			})
+		);
+
+		const flattenedTasks = [].concat.apply([], tasks);
+
+		const sortedTasks = flattenedTasks.sort((a, b) => {
+			const order = ['Lowest', 'Low', 'Medium', 'High', 'Highest'];
+
+			const priorityOfA = order.indexOf(a.priority);
+			const priorityOfB = order.indexOf(b.priority);
+
+			return priorityOfB - priorityOfA;
+		});
+
+		this.setState({
+			items: sortedTasks,
+		});
+	}
+
 	render() {
-		const { items } = this.props;
+		const { items } = this.state;
 		return (
 			<div className="Tasks">
 				<StyledHeader>Tasks</StyledHeader>
