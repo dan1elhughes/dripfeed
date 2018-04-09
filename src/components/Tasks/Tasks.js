@@ -22,6 +22,13 @@ export default class Tasks extends React.Component {
 		};
 	}
 
+	static get layout() {
+		return {
+			height: 3,
+			width: 2,
+		};
+	}
+
 	constructor(props) {
 		super(props);
 		this.state = {};

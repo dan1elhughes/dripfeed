@@ -8,7 +8,7 @@ export const colour = {
 	},
 
 	background: {
-		fill: 'blue',
-		tile: 'green',
+		fill: '#191D25',
+		tile: '#24292F',
 	},
 };

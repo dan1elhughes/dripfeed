@@ -4,8 +4,11 @@ import Store from './Store';
 import JiraConnector from './api/Jira';
 import LocationTile from './components/LocationTile/LocationTile';
 import Tasks from './components/Tasks/Tasks';
+import Tile from './components/Tile/Tile';
 import './App.css';
 import 'weathericons/css/weather-icons.min.css';
+
+import { colour } from './styles/variables';
 
 const filter =
 	'assignee = currentUser() AND resolution is EMPTY ORDER BY priority DESC, updated DESC';
@@ -63,11 +66,11 @@ export default class App extends Component {
 		const { issues } = this.state;
 
 		return (
-			<div className="App" style={{ backgroundColor: '#1A1F25' }}>
+			<div className="App" style={{ backgroundColor: colour.background.fill }}>
 				{offices.map(office => (
-					<LocationTile key={office.name} office={office} />
+					<Tile key={office.name} component={LocationTile} office={office} />
 				))}
-				<Tasks items={issues} />
+				<Tile component={Tasks} items={issues} />
 			</div>
 		);
 	}

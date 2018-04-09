@@ -107,7 +107,7 @@ export default class LocationTile extends React.Component {
 
 	render() {
 		return (
-			<div className="LocationTile" style={{ backgroundColor: '#24282F' }}>
+			<div className="LocationTile">
 				<StyledLocalTime>{this.getLocalTime()}</StyledLocalTime>
 				<StyledWeather>
 					{this.state.temperature}°

@@ -1,6 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import bindMethods from 'yaab';
+
+import { colour } from '../../styles/variables';
+
+const StyledTaskItem = styled.p`
+	border-bottom: 3px solid ${colour.background.fill};
+	margin: 0;
+	padding: 0.5em 0;
+`;
 
 export default class Task extends React.Component {
 	static get propTypes() {
@@ -20,9 +29,9 @@ export default class Task extends React.Component {
 		const { id, summary } = this.props;
 		return (
 			<div className="Task">
-				<p>
+				<StyledTaskItem>
 					[{id}] {summary}
-				</p>
+				</StyledTaskItem>
 			</div>
 		);
 	}
