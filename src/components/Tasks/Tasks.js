@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import bindMethods from 'yaab';
 import styled from 'styled-components';
 
+import Task from '../Task/Task';
+
 const StyledHeader = styled.h2`
 	text-transform: uppercase;
 	font-weight: normal;
@@ -13,7 +15,7 @@ export default class Tasks extends React.Component {
 		return {
 			tasks: PropTypes.arrayOf(
 				PropTypes.shape({
-					key: PropTypes.string.isRequired,
+					id: PropTypes.string.isRequired,
 					summary: PropTypes.string.isRequired,
 				})
 			).isRequired,
@@ -27,16 +29,13 @@ export default class Tasks extends React.Component {
 	}
 
 	render() {
-		const { tasks } = this.props;
+		const { items } = this.props;
 		return (
 			<div className="Tasks">
 				<StyledHeader>Tasks</StyledHeader>
-				{tasks.map(task => (
-
+				{items.map(({ key: id, ...item }) => (
+					<Task key={id} id={id} {...item} />
 				))}
-				<pre>
-					<code>{JSON.stringify(this.props, null, 4)}</code>
-				</pre>
 			</div>
 		);
 	}

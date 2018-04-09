@@ -67,7 +67,7 @@ export default class App extends Component {
 				{offices.map(office => (
 					<LocationTile key={office.name} office={office} />
 				))}
-				<Tasks issues={issues} />
+				<Tasks items={issues} />
 			</div>
 		);
 	}
