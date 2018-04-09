@@ -25,7 +25,7 @@ export default class LocationTile extends React.Component {
 	}
 
 	static get defaultProps() {
-		return { pollRate: 600 };
+		return { pollRate: 300 };
 	}
 
 	static get initialState() {
