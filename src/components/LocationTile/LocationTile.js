@@ -4,12 +4,23 @@ import bindMethods from 'yaab';
 import styled from 'styled-components';
 import Weather from '../../api/Weather';
 
+import { colour } from '../../styles/variables';
+
 const base = 'https://query.yahooapis.com';
 const weather = new Weather({ base });
 
 const StyledOfficeName = styled.p`
 	text-transform: uppercase;
-	color: ${props => (props.isWorkingHours ? '#4CD680' : '#F70087')};
+	color: ${props => (props.isWorkingHours ? colour.positive : colour.negative)};
+`;
+
+const StyledLocalTime = styled.h3`
+	color: ${colour.body.strong};
+	font-weight: normal;
+`;
+
+const StyledWeather = styled.p`
+	color: ${colour.body.dim};
 `;
 
 export default class LocationTile extends React.Component {
@@ -97,11 +108,11 @@ export default class LocationTile extends React.Component {
 	render() {
 		return (
 			<div className="LocationTile" style={{ backgroundColor: '#24282F' }}>
-				<h3>{this.getLocalTime()}</h3>
-				<p>
+				<StyledLocalTime>{this.getLocalTime()}</StyledLocalTime>
+				<StyledWeather>
 					{this.state.temperature}°
 					<i className={this.state.iconClass} />
-				</p>
+				</StyledWeather>
 				<StyledOfficeName isWorkingHours={this.isWorkingHours()}>
 					{this.props.office.name}
 				</StyledOfficeName>
