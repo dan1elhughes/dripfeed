@@ -3,6 +3,14 @@ import PropTypes from 'prop-types';
 import bindMethods from 'yaab';
 import styled from 'styled-components';
 import Forecast from 'forecast-promise';
+import auth from '../../auth.js';
+
+const { accountId, token } = auth.find(({ type }) => type === 'forecast');
+
+const forecast = new Forecast({
+	accountId,
+	token,
+});
 
 const StyledHeader = styled.h2`
 	text-transform: uppercase;
@@ -42,9 +50,15 @@ export default class OutTile extends React.Component {
 	}
 
 	fetchHolidayBookings() {
-		this.setState({
-			holidays: [{ name: 'Dan Hughes', from: new Date(), to: new Date() }],
-		});
+		const startDate = new Date();
+		const endDate = new Date(startDate.getTime() + 7 * 24 * 60 * 60 * 1000);
+
+		forecast
+			.assignments({ startDate, endDate })
+			.then(assignments =>
+				assignments.filter(assignment => assignment.project_id === 1047482)
+			)
+			.then(console.log.bind(console));
 	}
 
 	render() {
