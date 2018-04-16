@@ -13,3 +13,9 @@ export const colour = {
 		tile: '#24292F',
 	},
 };
+
+export const grid = {
+	columns: 5,
+	rows: 3,
+	gutter: 10,
+};

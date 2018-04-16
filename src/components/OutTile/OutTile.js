@@ -42,7 +42,7 @@ const StyledSubText = styled.p`
 
 export default class OutTile extends React.Component {
 	static get layout() {
-		return { width: 1, height: 2 };
+		return { width: 2, height: 2 };
 	}
 
 	static get propTypes() {

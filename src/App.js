@@ -13,10 +13,12 @@ import Tile from './components/Tile/Tile';
 import './App.css';
 import 'weathericons/css/weather-icons.min.css';
 
-import { colour } from './styles/variables';
+import { colour, grid } from './styles/variables';
 
 const StyledContainer = styled.div`
 	background-color: ${colour.background.fill};
+	display: flex;
+	flex-wrap: wrap;
 `;
 
 const store = new Store();
@@ -68,8 +70,8 @@ export default class App extends Component {
 					{offices.map(office => (
 						<Tile key={office.name} component={LocationTile} office={office} />
 					))}
-					<Tile component={Tasks} settings={settings} />
 					<Tile component={OutTile} />
+					<Tile component={Tasks} settings={settings} />
 				</StyledContainer>
 			</div>
 		);
