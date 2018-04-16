@@ -14,14 +14,8 @@ const StyledHeader = styled.h2`
 
 export default class Tasks extends React.Component {
 	static get propTypes() {
-		return {
-			items: PropTypes.arrayOf(
-				PropTypes.shape({
-					id: PropTypes.string.isRequired,
-					summary: PropTypes.string.isRequired,
-				})
-			).isRequired,
-		};
+		// TODO
+		return {};
 	}
 
 	static get layout() {
@@ -50,7 +44,7 @@ export default class Tasks extends React.Component {
 			})
 		);
 
-		const flattenedTasks = [].concat.apply([], tasks);
+		const flattenedTasks = [].concat.apply([], tasks).filter(Boolean);
 
 		const sortedTasks = flattenedTasks.sort((a, b) => {
 			const order = ['Lowest', 'Low', 'Medium', 'High', 'Highest'];
@@ -68,6 +62,7 @@ export default class Tasks extends React.Component {
 
 	render() {
 		const { items } = this.state;
+
 		return (
 			<div className="Tasks">
 				<StyledHeader>Tasks</StyledHeader>
