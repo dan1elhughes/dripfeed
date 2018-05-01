@@ -21,7 +21,7 @@ class MyFirstGrid extends React.Component {
 				layout={layout}
 				cols={6}
 				rowHeight={100}
-				width={1200}
+				width={3000}
 			>
 				<div className="GridItem" key="a">a</div>
 				<div className="GridItem" key="b">b</div>
