@@ -82,19 +82,18 @@ export default class OutTile extends React.Component {
 		]);
 
 		const holidayAssignments = assignments.filter(
-			_ => _.project_id === 1047482
+			_ => _.project_id === 1047482 && _.person_id !== null
 		);
 
-		const peopleLookup = new Map(people.map(({ id, ...rest }) => [id, rest]));
+		const lookup = new Map(people.map(({ id, ...rest }) => [id, rest]));
 
 		const today = moment();
 
 		const holidays = holidayAssignments
 			.map(assignment => {
-				const { start_date, end_date } = assignment;
-				const { first_name, last_name, avatar_url } = peopleLookup.get(
-					assignment.person_id
-				);
+				const { start_date, end_date, person_id } = assignment;
+
+				const { first_name, last_name, avatar_url } = lookup.get(person_id);
 
 				return {
 					starts: moment(start_date).diff(today, 'days'),
@@ -110,7 +109,7 @@ export default class OutTile extends React.Component {
 		this.setState({ holidays });
 	}
 
-	getHolidayText({ starts, ends, mEnds }) {
+	getHolidayText({ starts, mEnds }) {
 		const days = d => (d > 1 ? 'days' : 'day');
 
 		if (mEnds.diff(moment(), 'hours') <= 0) {
@@ -118,7 +117,7 @@ export default class OutTile extends React.Component {
 		}
 
 		if (starts > 0) {
-			return `in ${starts} ${days(starts)}`;
+			return `in ${starts + 1} ${days(starts + 1)}`;
 		}
 
 		// Add one day because they are back
