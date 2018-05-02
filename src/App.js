@@ -7,6 +7,7 @@ import auth from './auth';
 
 import LocationTile from './components/LocationTile/LocationTile';
 import OutTile from './components/OutTile/OutTile';
+import SettingsPanel from './components/SettingsPanel/SettingsPanel';
 import Tasks from './components/Tasks/Tasks';
 import Tile from './components/Tile/Tile';
 
@@ -59,6 +60,10 @@ export default class App extends Component {
 		});
 	}
 
+	updateSettings() {
+		console.log(arguments);
+	}
+
 	render() {
 		const { settings } = this.state;
 
@@ -71,6 +76,7 @@ export default class App extends Component {
 					<Tile component={Tasks} settings={settings} />
 					<Tile component={OutTile} />
 				</StyledContainer>
+				<SettingsPanel settings={settings} onChange={this.updateSettings} />
 			</div>
 		);
 	}
