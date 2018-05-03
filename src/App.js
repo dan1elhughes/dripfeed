@@ -3,7 +3,6 @@ import bindMethods from 'yaab';
 import styled from 'styled-components';
 
 import Store from './Store';
-import auth from './auth';
 
 import LocationTile from './components/LocationTile/LocationTile';
 import OutTile from './components/OutTile/OutTile';
@@ -37,8 +36,6 @@ const offices = [
 	},
 ];
 
-store.set('settings', auth);
-
 export default class App extends Component {
 	static get initialState() {
 		return {
@@ -60,8 +57,9 @@ export default class App extends Component {
 		});
 	}
 
-	updateSettings() {
-		console.log(arguments);
+	updateSettings(settings) {
+		store.set('settings', settings);
+		this.setState({ settings });
 	}
 
 	render() {
@@ -74,7 +72,7 @@ export default class App extends Component {
 						<Tile key={office.name} component={LocationTile} office={office} />
 					))}
 					<Tile component={Tasks} settings={settings} />
-					<Tile component={OutTile} />
+					<Tile component={OutTile} settings={settings} />
 				</StyledContainer>
 				<SettingsPanel settings={settings} onChange={this.updateSettings} />
 			</div>

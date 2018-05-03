@@ -8,7 +8,16 @@ import { colour } from '../../styles/variables';
 const StyledTaskItem = styled.p`
 	border-bottom: 3px solid ${colour.background.fill};
 	margin: 0;
-	padding: 0.5em 0;
+	padding: 1em 0;
+	cursor: pointer;
+	&:hover {
+		background: #444;
+	}
+`;
+
+const StyledTaskExpandedView = styled.div`
+	height: ${props => (props.isOpen ? 'auto' : '0')};
+	overflow: hidden;
 `;
 
 export default class Task extends React.Component {
@@ -21,17 +30,29 @@ export default class Task extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {};
+		this.state = { isExpanded: false };
 		bindMethods(this);
+	}
+
+	toggleExpandedView() {
+		this.setState(({ isExpanded }) => ({
+			isExpanded: !isExpanded,
+		}));
 	}
 
 	render() {
 		const { id, summary } = this.props;
 		return (
 			<div className="Task">
-				<StyledTaskItem>
+				<StyledTaskItem onClick={this.toggleExpandedView}>
 					[{id}] {summary}
 				</StyledTaskItem>
+				<StyledTaskExpandedView isOpen={this.state.isExpanded}>
+					<div dangerouslySetInnerHTML={{ __html: this.props.description }} />
+					<pre>
+						<code>{JSON.stringify(this.props, null, 4)}</code>
+					</pre>
+				</StyledTaskExpandedView>
 			</div>
 		);
 	}

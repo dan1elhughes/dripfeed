@@ -3,8 +3,11 @@ import Base from './Base';
 export default class Jira extends Base {
 	tickets(jql) {
 		const { name: instance, base } = this;
-		return this.fetch('/rest/api/latest/search', { jql }).then(({ issues }) =>
-			issues.map(({ key, fields }) => ({
+		return this.fetch('/rest/api/latest/search', {
+			expand: 'renderedFields',
+			jql,
+		}).then(({ issues }) =>
+			issues.map(({ key, fields, renderedFields }) => ({
 				instance,
 				key,
 				priority: fields.priority.name,
@@ -24,6 +27,7 @@ export default class Jira extends Base {
 				type: fields.issuetype.name,
 				project: fields.project.key,
 				summary: fields.summary,
+				description: renderedFields.description,
 			}))
 		);
 	}

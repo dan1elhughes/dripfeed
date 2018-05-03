@@ -5,15 +5,7 @@ import styled from 'styled-components';
 import Forecast from 'forecast-promise';
 import moment from 'moment';
 
-import auth from '../../auth.js';
 import { colour } from '../../styles/variables';
-
-const { accountId, token } = auth.find(({ type }) => type === 'forecast');
-
-const forecast = new Forecast({
-	accountId,
-	token,
-});
 
 const StyledHeader = styled.h2`
 	text-transform: uppercase;
@@ -55,15 +47,21 @@ export default class OutTile extends React.Component {
 
 	constructor(props) {
 		super(props);
+
 		this.state = {
 			holidays: [],
 		};
 		bindMethods(this);
 	}
 
-	componentDidMount() {
-		this.fetchHolidayBookings();
+	extractForecastSetting(settings) {
+		const forecastSettings = settings.filter(_ => _.type === 'forecast');
+		if (forecastSettings.length > 0) {
+			return forecastSettings[0];
+		}
+	}
 
+	componentDidMount() {
 		const { pollRate } = this.props;
 		this._interval = setInterval(this.fetchHolidayBookings, pollRate * 1000);
 	}
@@ -72,13 +70,28 @@ export default class OutTile extends React.Component {
 		clearInterval(this._interval);
 	}
 
+	componentWillReceiveProps({ settings }) {
+		const forecastSettings = this.extractForecastSetting(settings);
+		if (forecastSettings) {
+			const { username: accountId, password: token } = forecastSettings;
+
+			this.forecastInstance = new Forecast({ accountId, token });
+
+			this.fetchHolidayBookings();
+		} else {
+			this.setState({ holidays: [] });
+		}
+	}
+
 	async fetchHolidayBookings() {
+		if (!this.forecastInstance) return false;
+
 		const startDate = new Date();
 		const endDate = new Date(startDate.getTime() + 7 * 24 * 60 * 60 * 1000);
 
 		const [assignments, people] = await Promise.all([
-			forecast.assignments({ startDate, endDate }),
-			forecast.people(),
+			this.forecastInstance.assignments({ startDate, endDate }),
+			this.forecastInstance.people(),
 		]);
 
 		const holidayAssignments = assignments.filter(
@@ -132,6 +145,7 @@ export default class OutTile extends React.Component {
 		const outSoon = holidays.filter(holiday => holiday.starts > 0);
 		return (
 			<div className="OutTile">
+				{holidays.length === 0 && <p>No holidays found</p>}
 				{outToday.length > 0 && <StyledHeader>Out today</StyledHeader>}
 				{outToday.map(holiday => (
 					<div key={holiday.name + holiday.starts} style={{ clear: 'both' }}>
