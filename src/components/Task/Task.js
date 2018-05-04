@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import bindMethods from 'yaab';
 
-import { colour } from '../../styles/variables';
+import { color } from '../../styles/tokens.json';
 
 const StyledTaskItem = styled.p`
-	border-bottom: 3px solid ${colour.background.fill};
+	border-bottom: 3px solid ${color.background.fill};
 	margin: 0;
 	padding: 1em 0;
 	cursor: pointer;
@@ -25,6 +25,7 @@ export default class Task extends React.Component {
 		return {
 			id: PropTypes.string.isRequired,
 			summary: PropTypes.string.isRequired,
+			description: PropTypes.string,
 		};
 	}
 

@@ -19,25 +19,25 @@
 		"yaab": "^0.2.0"
 	},
 	"scripts": {
-		"start": "react-scripts start",
-		"build": "react-scripts build",
+		"start": "npm run build-tokens && react-scripts start",
+		"build": "npm run build-tokens && react-scripts build",
 		"test": "react-scripts test --env=jsdom",
 		"eject": "react-scripts eject",
 		"lint": "eslint --ignore-path .gitignore .",
+		"build-tokens": "node ./src/styles/_build.node.js",
 		"precommit": "lint-staged"
 	},
 	"devDependencies": {
 		"eslint": "^4.19.1",
 		"eslint-config-prettier": "^2.9.0",
 		"eslint-plugin-prettier": "^2.6.0",
+		"flat": "^4.0.0",
 		"husky": "^0.14.3",
+		"js-yaml": "^3.11.0",
 		"lint-staged": "^7.0.5",
 		"prettier": "^1.11.1"
 	},
 	"lint-staged": {
-		"*.js": [
-			"eslint",
-			"git add"
-		]
+		"*.js": ["eslint", "git add"]
 	}
 }

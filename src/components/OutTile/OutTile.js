@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Forecast from 'forecast-promise';
 import moment from 'moment';
 
-import { colour } from '../../styles/variables';
+import { color } from '../../styles/tokens.json';
 
 const StyledHeader = styled.h2`
 	text-transform: uppercase;
@@ -29,7 +29,7 @@ const StyledName = styled.h3`
 const StyledSubText = styled.p`
 	margin-top: 0px;
 	text-transform: uppercase;
-	color: ${colour.detail};
+	color: ${color.text.dim};
 `;
 
 export default class OutTile extends React.Component {

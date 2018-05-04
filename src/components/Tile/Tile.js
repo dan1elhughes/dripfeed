@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { colour } from '../../styles/variables';
+import { color, radius, spacing } from '../../styles/tokens.json';
 
 const StyledTile = styled.div`
-	background: ${colour.background.tile};
+	background: ${color.background.tile};
 	padding: 1em;
-	margin: 1em;
+	margin: ${spacing.large};
+	border-radius: ${radius.large};
 `;
 
 const Tile = ({ component: Component, ...props }) => {

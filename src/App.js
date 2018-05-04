@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import bindMethods from 'yaab';
-import styled from 'styled-components';
+import styled, { injectGlobal } from 'styled-components';
 
 import Store from './Store';
 
@@ -10,13 +10,21 @@ import SettingsPanel from './components/SettingsPanel/SettingsPanel';
 import Tasks from './components/Tasks/Tasks';
 import Tile from './components/Tile/Tile';
 
-import './App.css';
 import 'weathericons/css/weather-icons.min.css';
 
-import { colour } from './styles/variables';
+import { color, font } from './styles/tokens.json';
+
+injectGlobal`
+	@import '${font.body.url}';
+
+	#root {
+		font-family: ${font.body.family};
+		color: ${color.text.strong};
+	}
+`;
 
 const StyledContainer = styled.div`
-	background-color: ${colour.background.fill};
+	background-color: ${color.background.fill};
 `;
 
 const store = new Store();
