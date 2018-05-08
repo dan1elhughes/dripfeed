@@ -3,26 +3,33 @@ import PropTypes from 'prop-types';
 import bindMethods from 'yaab';
 import styled from 'styled-components';
 
+import { spacing } from '../../styles/tokens.json';
+
 import Account from '../Account/Account';
 import Modal from '../Modal/Modal';
 
 const width = 400;
 
 const StyledPanel = styled.div`
-	background: black;
-	color: white;
+	background: #000000;
+	color: #ffffff;
 	position: fixed;
 	top: 0;
 	right: 0;
 	width: ${width}px;
-	padding: 1em;
+	padding: ${spacing.large};
+	text-align: center;
 	transition: transform 0.25s;
-	transform: translateX(${props => (props.isOpen ? '0px' : `${width}px`)});
+	transform: translateX(
+		${props =>
+			props.isOpen ? '0px' : `calc(${width}px + calc(${spacing.large})*2)`}
+	);
 `;
 
 const StyledPullTab = styled.div`
-	background: black;
-	color: white;
+	background: #000000;
+	color: #ffffff;
+	cursor: pointer;
 	position: absolute;
 	left: -50px;
 	font-size: 40px;

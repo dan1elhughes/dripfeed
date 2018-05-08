@@ -2,18 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { color, radius, spacing } from '../../styles/tokens.json';
+import { color, radius } from '../../styles/tokens.json';
 
 const StyledTile = styled.div`
 	background: ${color.background.tile};
-	padding: 1em;
-	margin: ${spacing.large};
 	border-radius: ${radius.large};
+	grid-area: span ${props => props.height} / span ${props => props.width};
+	overflow-y: auto;
+	text-align: center;
 `;
 
 const Tile = ({ component: Component, ...props }) => {
 	return (
-		<StyledTile width={Component.layout.width} height={Component.layout.height}>
+		<StyledTile
+			className="Tile"
+			width={Component.layout.width}
+			height={Component.layout.height}
+		>
 			<Component {...props} />
 		</StyledTile>
 	);

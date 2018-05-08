@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import bindMethods from 'yaab';
 import styled, { injectGlobal } from 'styled-components';
 
+import { spacing } from './styles/tokens.json';
+
 import Store from './Store';
 
 import LocationTile from './components/LocationTile/LocationTile';
@@ -18,13 +20,19 @@ injectGlobal`
 	@import '${font.body.url}';
 
 	#root {
+		background-color: ${color.background.fill};
 		font-family: ${font.body.family};
 		color: ${color.text.strong};
 	}
 `;
 
 const StyledContainer = styled.div`
-	background-color: ${color.background.fill};
+	display: grid;
+	grid-gap: ${spacing.large};
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-template-rows: repeat(4, 25vh);
+	padding: ${spacing.large};
+	width: 100%;
 `;
 
 const store = new Store();

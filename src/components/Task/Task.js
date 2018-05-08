@@ -8,8 +8,9 @@ import { color } from '../../styles/tokens.json';
 const StyledTaskItem = styled.p`
 	border-bottom: 3px solid ${color.background.fill};
 	margin: 0;
-	padding: 1em 0;
+	padding: 1em;
 	cursor: pointer;
+	text-align: left;
 	&:hover {
 		background: #444;
 	}

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import bindMethods from 'yaab';
 import styled from 'styled-components';
 
@@ -20,7 +19,7 @@ export default class Tasks extends React.Component {
 
 	static get layout() {
 		return {
-			height: 3,
+			height: 2,
 			width: 2,
 		};
 	}
