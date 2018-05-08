@@ -27,12 +27,13 @@ injectGlobal`
 `;
 
 const StyledContainer = styled.div`
+	box-sizing: border-box;
 	display: grid;
 	grid-gap: ${spacing.large};
-	grid-template-columns: 1fr 1fr 1fr 1fr;
-	grid-template-rows: repeat(4, 25vh);
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: repeat(3, 1fr);
+	height: 100vh;
 	padding: ${spacing.large};
-	width: 100%;
 `;
 
 const store = new Store();

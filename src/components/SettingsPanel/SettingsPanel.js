@@ -19,7 +19,7 @@ const StyledPanel = styled.div`
 	width: ${width}px;
 	padding: ${spacing.large};
 	text-align: center;
-	transition: transform 0.25s;
+	transition: transform 0.5s;
 	transform: translateX(
 		${props =>
 			props.isOpen ? '0px' : `calc(${width}px + calc(${spacing.large})*2)`}
@@ -36,6 +36,8 @@ const StyledPullTab = styled.div`
 	width: 30px;
 	height: 30px;
 	padding: 10px;
+	top: 0;
+	transition: transform 0.5s;
 	transform: rotate(${props => (props.isOpen ? '180deg' : '0deg')});
 `;
 
