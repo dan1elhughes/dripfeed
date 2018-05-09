@@ -39,8 +39,8 @@ const StyledContainer = styled.div`
 const store = new Store();
 
 const offices = [
-	{ name: 'Chicago', woeId: 2379574, locale: 'America/Chicago' },
 	{ name: 'Reading', woeId: 22484804, locale: 'Europe/London' },
+	{ name: 'Chicago', woeId: 2379574, locale: 'America/Chicago' },
 	{
 		name: 'Hong Kong',
 		woeId: 12467924,
@@ -85,10 +85,10 @@ export default class App extends Component {
 		return (
 			<div className="App">
 				<StyledContainer>
+					<Tile component={Tasks} settings={settings} />
 					{offices.map(office => (
 						<Tile key={office.name} component={LocationTile} office={office} />
 					))}
-					<Tile component={Tasks} settings={settings} />
 					<Tile component={OutTile} settings={settings} />
 				</StyledContainer>
 				<SettingsPanel settings={settings} onChange={this.updateSettings} />

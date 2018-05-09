@@ -3,6 +3,7 @@ import bindMethods from 'yaab';
 import styled from 'styled-components';
 
 import JiraConnector from '../../api/Jira';
+import BitbucketConnector from '../../api/Bitbucket';
 
 import Task from '../Task/Task';
 
@@ -19,8 +20,8 @@ export default class Tasks extends React.Component {
 
 	static get layout() {
 		return {
-			height: 1,
-			width: 4,
+			height: 3,
+			width: 2,
 		};
 	}
 
@@ -40,12 +41,18 @@ export default class Tasks extends React.Component {
 						'assignee = currentUser() AND resolution is EMPTY'
 					);
 				}
+				if (auth.type === 'bitbucket') {
+					return new BitbucketConnector(auth).pullRequests();
+				}
 			})
 		);
 
 		const flattenedTasks = [].concat.apply([], tasks).filter(Boolean);
 
 		const sortedTasks = flattenedTasks.sort((a, b) => {
+			if (a._type === 'pr') return -1;
+			if (b._type === 'pr') return 1;
+
 			const order = ['Lowest', 'Low', 'Medium', 'High', 'Highest'];
 
 			const priorityOfA = order.indexOf(a.priority);
@@ -54,6 +61,7 @@ export default class Tasks extends React.Component {
 			return priorityOfB - priorityOfA;
 		});
 
+		// console.log(sortedTasks);
 		this.setState({
 			items: sortedTasks,
 		});
@@ -65,8 +73,8 @@ export default class Tasks extends React.Component {
 		return (
 			<div className="Tasks">
 				<StyledHeader>Tasks</StyledHeader>
-				{items.map(({ key: id, ...item }) => (
-					<Task key={id} id={id} {...item} />
+				{items.map(({ key: id, _type, ...item }) => (
+					<Task key={id} id={id} _type={_type} {...item} />
 				))}
 			</div>
 		);

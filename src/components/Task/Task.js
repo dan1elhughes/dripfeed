@@ -25,8 +25,9 @@ export default class Task extends React.Component {
 	static get propTypes() {
 		return {
 			id: PropTypes.string.isRequired,
-			summary: PropTypes.string.isRequired,
+			title: PropTypes.string.isRequired,
 			description: PropTypes.string,
+			_type: PropTypes.oneOf(['ticket', 'pr']).isRequired,
 		};
 	}
 
@@ -43,11 +44,11 @@ export default class Task extends React.Component {
 	}
 
 	render() {
-		const { id, summary } = this.props;
+		const { id, title } = this.props;
 		return (
 			<div className="Task">
 				<StyledTaskItem onClick={this.toggleExpandedView}>
-					[{id}] {summary}
+					[{id}] {title}
 				</StyledTaskItem>
 				<StyledTaskExpandedView isOpen={this.state.isExpanded}>
 					<div dangerouslySetInnerHTML={{ __html: this.props.description }} />

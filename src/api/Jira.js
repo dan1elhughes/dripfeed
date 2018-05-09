@@ -8,11 +8,19 @@ export default class Jira extends Base {
 			jql,
 		}).then(({ issues }) =>
 			issues.map(({ key, fields, renderedFields }) => ({
+				_type: 'ticket',
 				instance,
-				key,
+				id: key,
+
+				project: fields.project.key,
+				title: fields.summary,
+				description: renderedFields.description,
+
 				priority: fields.priority.name,
 				status: fields.status.name,
-				reporter: {
+				type: fields.issuetype.name,
+
+				creator: {
 					name: fields.reporter.name,
 					displayName: fields.reporter.displayName,
 					photo: `${base}/secure/useravatar?ownerId=${fields.reporter.name}`,
@@ -22,12 +30,9 @@ export default class Jira extends Base {
 						name: fields.assignee.name,
 						displayName: fields.assignee.displayName,
 						photo: `${base}/secure/useravatar?ownerId=${fields.assignee.name}`,
+						approval: 'UNAPPROVED',
 					},
 				],
-				type: fields.issuetype.name,
-				project: fields.project.key,
-				summary: fields.summary,
-				description: renderedFields.description,
 			}))
 		);
 	}
