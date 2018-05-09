@@ -5,6 +5,7 @@
 	"dependencies": {
 		"@koa/cors": "^2.2.1",
 		"axios": "^0.18.0",
+		"dtbuilder": "0.0.1",
 		"forecast-promise": "^1.1.0",
 		"koa": "^2.5.0",
 		"koa-router": "^7.4.0",
@@ -19,12 +20,13 @@
 		"yaab": "^0.2.0"
 	},
 	"scripts": {
-		"start": "npm run build-tokens && react-scripts start",
-		"build": "npm run build-tokens && react-scripts build",
+		"prestart": "dtbuilder -i src/styles/tokens.yaml -o src/styles -f json",
+		"start": "react-scripts start",
+		"prebuild": "dtbuilder -i src/styles/tokens.yaml -o src/styles -f json",
+		"build": "react-scripts build",
 		"test": "react-scripts test --env=jsdom",
 		"eject": "react-scripts eject",
 		"lint": "eslint --ignore-path .gitignore .",
-		"build-tokens": "node ./src/styles/_build.node.js",
 		"precommit": "lint-staged"
 	},
 	"devDependencies": {
