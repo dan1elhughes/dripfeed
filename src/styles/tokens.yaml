@@ -4,7 +4,7 @@ color:
         fill: "#191D25"
         tile: "#24292F"
     text:
-        positive: "#4CD680"
+        positive: "#50C878"
         negative: "#F70087"
         strong: white
         dim: rgba(255, 255, 255, 0.5)

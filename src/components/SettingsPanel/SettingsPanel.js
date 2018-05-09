@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import bindMethods from 'yaab';
 import styled from 'styled-components';
 
-import { spacing } from '../../styles/tokens.json';
+import { color, spacing } from '../../styles/tokens.json';
+
+import chevron from './assets/SettingPanel-Chevron.png';
 
 import Account from '../Account/Account';
 import Modal from '../Modal/Modal';
@@ -24,10 +26,27 @@ const StyledPanel = styled.div`
 		${props =>
 			props.isOpen ? '0px' : `calc(${width}px + calc(${spacing.large})*2)`}
 	);
+	button {
+		background: #ffffff;
+		border: 0;
+		border-radius: 5px;
+		font-size: 14px;
+		padding: ${spacing.medium};
+		text-transform: uppercase;
+		transition: background 0.25s, color 0.25s;
+		width: 100%;
+		&:hover {
+			background: ${color.text.positive};
+			color: #ffffff;
+			cursor: pointer;
+		}
+	}
 `;
 
 const StyledPullTab = styled.div`
-	background: #000000;
+	background: url(${chevron}) no-repeat 50% 50% #000000;
+	background-size: 35%;
+	border-radius: 10px 0 0 10px;
 	color: #ffffff;
 	cursor: pointer;
 	position: absolute;
@@ -133,9 +152,7 @@ export default class SettingsPanel extends React.Component {
 		return (
 			<React.Fragment>
 				<StyledPanel isOpen={this.state.isOpen}>
-					<StyledPullTab onClick={this.toggleOpen} isOpen={this.state.isOpen}>
-						&lsaquo;
-					</StyledPullTab>
+					<StyledPullTab onClick={this.toggleOpen} isOpen={this.state.isOpen} />
 					{this.state.settings.map((account, i) => (
 						<Account
 							key={i}

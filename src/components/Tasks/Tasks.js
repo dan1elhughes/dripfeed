@@ -19,8 +19,8 @@ export default class Tasks extends React.Component {
 
 	static get layout() {
 		return {
-			height: 1,
-			width: 4,
+			height: 3,
+			width: 2,
 		};
 	}
 
