@@ -2,14 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import bindMethods from 'yaab';
 
-import {
-	StyledHeader,
-	StyledPanel,
-	StyledPullTab,
-} from './SettingsPanel.styles';
+import { StyledPanel, StyledPullTab } from './SettingsPanel.styles';
 
 import Account from '../Account/Account';
 import Modal from '../Modal/Modal';
+import Header from '../Header/Header';
 
 export default class SettingsPanel extends React.Component {
 	static get propTypes() {
@@ -130,7 +127,7 @@ export default class SettingsPanel extends React.Component {
 					<button onClick={this.save}>Save</button>
 				</StyledPanel>
 				<Modal isVisible={this.state.modalIsVisible}>
-					<StyledHeader>Add account</StyledHeader>
+					<Header level={2}>Add account</Header>
 					<p>
 						<input
 							onChange={this.handleFormChange}

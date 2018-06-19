@@ -5,12 +5,9 @@ import Forecast from 'forecast-promise';
 
 import moment from 'moment';
 
-import {
-	StyledHeader,
-	StyledAvatar,
-	StyledName,
-	StyledSubText,
-} from './OutTile.styles';
+import Header from '../Header/Header';
+
+import { StyledAvatar, StyledName, StyledSubText } from './OutTile.styles';
 
 export default class OutTile extends React.Component {
 	static get layout() {
@@ -125,10 +122,8 @@ export default class OutTile extends React.Component {
 		const outSoon = holidays.filter(holiday => holiday.starts > 0);
 		return (
 			<div className="OutTile">
-				{holidays.length === 0 && (
-					<StyledHeader>No holidays found</StyledHeader>
-				)}
-				{outToday.length > 0 && <StyledHeader>Out today</StyledHeader>}
+				{holidays.length === 0 && <Header level={2}>No holidays found</Header>}
+				{outToday.length > 0 && <Header level={2}>Out today</Header>}
 				{outToday.map(holiday => (
 					<div key={holiday.name + holiday.starts} style={{ clear: 'both' }}>
 						<StyledAvatar src={holiday.avatarUrl} />
@@ -136,7 +131,7 @@ export default class OutTile extends React.Component {
 						<StyledSubText>{this.getHolidayText(holiday)}</StyledSubText>
 					</div>
 				))}
-				{outSoon.length > 0 && <StyledHeader>Out soon</StyledHeader>}
+				{outSoon.length > 0 && <Header level={2}>Out soon</Header>}
 				{outSoon.map(holiday => (
 					<div key={holiday.name + holiday.starts} style={{ clear: 'both' }}>
 						<StyledAvatar src={holiday.avatarUrl} />

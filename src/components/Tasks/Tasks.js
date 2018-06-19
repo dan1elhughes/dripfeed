@@ -4,8 +4,7 @@ import bindMethods from 'yaab';
 import JiraConnector from '../../api/Jira';
 
 import Task from '../Task/Task';
-
-import { StyledHeader } from './Tasks.styles';
+import Header from '../Header/Header';
 
 export default class Tasks extends React.Component {
 	static get propTypes() {
@@ -60,7 +59,7 @@ export default class Tasks extends React.Component {
 
 		return (
 			<div className="Tasks">
-				<StyledHeader>Tasks</StyledHeader>
+				<Header level={2}>Tasks</Header>
 				{items.map(({ key: id, ...item }) => (
 					<Task key={id} id={id} {...item} />
 				))}
