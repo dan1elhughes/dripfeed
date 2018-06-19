@@ -15,5 +15,6 @@ export default function createStyledHeader(level) {
 		font-weight: normal;
 		font-size: ${getFontSizeFromProps};
 		margin: 0 0 ${spacing.medium} 0;
+		text-align: ${props => (props.centered ? 'center' : 'inherit')};
 	`;
 }

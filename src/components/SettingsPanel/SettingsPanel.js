@@ -127,39 +127,33 @@ export default class SettingsPanel extends React.Component {
 					<button onClick={this.save}>Save</button>
 				</StyledPanel>
 				<Modal isVisible={this.state.modalIsVisible}>
-					<Header level={2}>Add account</Header>
-					<p>
-						<input
-							onChange={this.handleFormChange}
-							type="text"
-							name="name"
-							placeholder="Name"
-						/>
-					</p>
-					<p>
-						<input
-							onChange={this.handleFormChange}
-							type="text"
-							name="base"
-							placeholder="API base"
-						/>
-					</p>
-					<p>
-						<input
-							onChange={this.handleFormChange}
-							type="text"
-							name="username"
-							placeholder="Username"
-						/>
-					</p>
-					<p>
-						<input
-							onChange={this.handleFormChange}
-							type="password"
-							name="password"
-							placeholder="Password"
-						/>
-					</p>
+					<Header level={2} centered={true}>
+						Add account
+					</Header>
+					<input
+						onChange={this.handleFormChange}
+						type="text"
+						name="name"
+						placeholder="Name"
+					/>
+					<input
+						onChange={this.handleFormChange}
+						type="text"
+						name="base"
+						placeholder="API base"
+					/>
+					<input
+						onChange={this.handleFormChange}
+						type="text"
+						name="username"
+						placeholder="Username"
+					/>
+					<input
+						onChange={this.handleFormChange}
+						type="password"
+						name="password"
+						placeholder="Password"
+					/>
 					<button onClick={this.addAccount}>Add account</button>
 					<button onClick={this.closeModal}>Cancel</button>
 				</Modal>
