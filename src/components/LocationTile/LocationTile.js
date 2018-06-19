@@ -1,28 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import bindMethods from 'yaab';
-import styled from 'styled-components';
 import Weather from '../../api/Weather';
 
-import { color } from '../../styles/tokens.json';
+import {
+	StyledOfficeName,
+	StyledLocalTime,
+	StyledWeather,
+} from './LocationTile.styles';
 
 const base = 'https://query.yahooapis.com';
 const weather = new Weather({ base });
-
-const StyledOfficeName = styled.p`
-	text-transform: uppercase;
-	color: ${props =>
-		props.isWorkingHours ? color.text.positive : color.text.negative};
-`;
-
-const StyledLocalTime = styled.h3`
-	color: ${color.text.strong};
-	font-weight: normal;
-`;
-
-const StyledWeather = styled.p`
-	color: ${color.text.dim};
-`;
 
 export default class LocationTile extends React.Component {
 	static get propTypes() {

@@ -1,36 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import bindMethods from 'yaab';
-import styled from 'styled-components';
 import Forecast from 'forecast-promise';
+
 import moment from 'moment';
 
-import { color } from '../../styles/tokens.json';
-
-const StyledHeader = styled.h2`
-	text-transform: uppercase;
-	font-weight: normal;
-	clear: both;
-`;
-
-const StyledAvatar = styled.img`
-	width: 70px;
-	height: auto;
-	border-radius: 10px;
-	float: left;
-	margin-right: 20px;
-	margin-bottom: 20px;
-`;
-
-const StyledName = styled.h3`
-	margin-bottom: 0px;
-`;
-
-const StyledSubText = styled.p`
-	margin-top: 0px;
-	text-transform: uppercase;
-	color: ${color.text.dim};
-`;
+import {
+	StyledHeader,
+	StyledAvatar,
+	StyledName,
+	StyledSubText,
+} from './OutTile.styles';
 
 export default class OutTile extends React.Component {
 	static get layout() {
@@ -145,7 +125,9 @@ export default class OutTile extends React.Component {
 		const outSoon = holidays.filter(holiday => holiday.starts > 0);
 		return (
 			<div className="OutTile">
-				{holidays.length === 0 && <p>No holidays found</p>}
+				{holidays.length === 0 && (
+					<StyledHeader>No holidays found</StyledHeader>
+				)}
 				{outToday.length > 0 && <StyledHeader>Out today</StyledHeader>}
 				{outToday.map(holiday => (
 					<div key={holiday.name + holiday.starts} style={{ clear: 'both' }}>

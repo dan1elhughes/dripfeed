@@ -1,15 +1,11 @@
 import React from 'react';
 import bindMethods from 'yaab';
-import styled from 'styled-components';
 
 import JiraConnector from '../../api/Jira';
 
 import Task from '../Task/Task';
 
-const StyledHeader = styled.h2`
-	text-transform: uppercase;
-	font-weight: normal;
-`;
+import { StyledHeader } from './Tasks.styles';
 
 export default class Tasks extends React.Component {
 	static get propTypes() {

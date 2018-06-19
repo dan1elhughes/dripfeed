@@ -1,64 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import bindMethods from 'yaab';
-import styled from 'styled-components';
 
-import { color, spacing } from '../../styles/tokens.json';
-
-import chevron from './assets/SettingPanel-Chevron.png';
+import {
+	StyledHeader,
+	StyledPanel,
+	StyledPullTab,
+} from './SettingsPanel.styles';
 
 import Account from '../Account/Account';
 import Modal from '../Modal/Modal';
-
-const width = 400;
-
-const StyledPanel = styled.div`
-	background: #000000;
-	color: #ffffff;
-	position: fixed;
-	top: 0;
-	right: 0;
-	width: ${width}px;
-	padding: ${spacing.large};
-	text-align: center;
-	transition: transform 0.5s;
-	transform: translateX(
-		${props =>
-			props.isOpen ? '0px' : `calc(${width}px + calc(${spacing.large})*2)`}
-	);
-	button {
-		background: #ffffff;
-		border: 0;
-		border-radius: 5px;
-		font-size: 14px;
-		padding: ${spacing.medium};
-		text-transform: uppercase;
-		transition: background 0.25s, color 0.25s;
-		width: 100%;
-		&:hover {
-			background: ${color.text.positive};
-			color: #ffffff;
-			cursor: pointer;
-		}
-	}
-`;
-
-const StyledPullTab = styled.div`
-	background: url(${chevron}) no-repeat 50% 50% #000000;
-	background-size: 35%;
-	border-radius: 10px 0 0 10px;
-	color: #ffffff;
-	cursor: pointer;
-	position: absolute;
-	left: -50px;
-	font-size: 40px;
-	width: 30px;
-	height: 30px;
-	padding: 10px;
-	top: 0;
-	transition: transform 0.5s;
-	transform: rotate(${props => (props.isOpen ? '180deg' : '0deg')});
-`;
 
 export default class SettingsPanel extends React.Component {
 	static get propTypes() {
@@ -179,7 +130,7 @@ export default class SettingsPanel extends React.Component {
 					<button onClick={this.save}>Save</button>
 				</StyledPanel>
 				<Modal isVisible={this.state.modalIsVisible}>
-					<h2>Add account</h2>
+					<StyledHeader>Add account</StyledHeader>
 					<p>
 						<input
 							onChange={this.handleFormChange}

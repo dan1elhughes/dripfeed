@@ -1,16 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 
-import { color, radius } from '../../styles/tokens.json';
-
-const StyledTile = styled.div`
-	background: ${color.background.tile};
-	border-radius: ${radius.large};
-	grid-area: span ${props => props.height} / span ${props => props.width};
-	overflow-y: auto;
-	text-align: center;
-`;
+import { StyledTile } from './Tile.styles';
 
 const Tile = ({ component: Component, ...props }) => {
 	return (
