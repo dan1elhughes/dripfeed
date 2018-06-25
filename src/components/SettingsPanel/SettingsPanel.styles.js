@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import theme from '../../theme';
+
 import chevron from './assets/SettingPanel-Chevron.png';
 
 export const width = 400;
@@ -45,11 +47,11 @@ export const Overlay = styled.div`
 	top: 0;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(255, 255, 255, 0.3);
+	background-color: ${theme('overlay-background')};
 	visibility: ${props => (props.isOpen ? 'visible' : 'hidden')};
 	opacity: ${props => (props.isOpen ? '1' : '0')};
 	z-index: 1;
-	transition: opacity 0.5s, visibility 0.5s,
+	transition: opacity 0.5s, visibility 0.5s, background-color 0.5s,
 		left 0s ${props => (props.isOpen ? '0s' : '0.5s')};
 `;
 

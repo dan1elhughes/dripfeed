@@ -34,3 +34,7 @@ radius:
 shadow:
     dark: "rgba(0, 0, 0, 0)"
     light: "#f0f3ff"
+overlay:
+    background:
+        dark: "rgba(255, 255, 255, 0.3)"
+        light: "rgba(0, 0, 0, 0.3)"

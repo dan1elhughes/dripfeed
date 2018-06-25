@@ -1,4 +1,6 @@
 {
+	"color-white": "#FFFFFF",
+	"color-black": "#000000",
 	"color-background-fill-dark": "#191D25",
 	"color-background-fill-light": "#FAFBFF",
 	"color-background-tile-dark": "#24292F",
@@ -19,5 +21,7 @@
 	"radius-medium": "10px",
 	"radius-small": "5px",
 	"shadow-dark": "rgba(0, 0, 0, 0)",
-	"shadow-light": "#f0f3ff"
+	"shadow-light": "#f0f3ff",
+	"overlay-background-dark": "rgba(255, 255, 255, 0.3)",
+	"overlay-background-light": "rgba(0, 0, 0, 0.3)"
 }
