@@ -23,8 +23,9 @@
 	"scripts": {
 		"tay":
 			"tay -i src/tokens.yaml -o public/tokens.css -o src/theme/tokens.flat.json",
+		"start":
+			"concurrently -n browser,server -c red,green \"react-scripts start\" \"node server\"",
 		"prestart": "npm run tay",
-		"start": "react-scripts start",
 		"prebuild": "npm run tay",
 		"build": "react-scripts build",
 		"test": "react-scripts test --env=jsdom",
@@ -34,6 +35,7 @@
 		"production": "node server"
 	},
 	"devDependencies": {
+		"concurrently": "^3.6.0",
 		"eslint": "^4.19.1",
 		"eslint-config-prettier": "^2.9.0",
 		"eslint-plugin-prettier": "^2.6.0",
