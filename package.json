@@ -8,7 +8,7 @@
 		"forecast-promise": "^1.1.0",
 		"koa": "^2.5.0",
 		"koa-router": "^7.4.0",
-		"koa-static": "^4.0.2",
+		"koa-static": "^4.0.3",
 		"moment": "^2.22.1",
 		"normalize.css": "^8.0.0",
 		"react": "^16.3.1",
@@ -20,11 +20,9 @@
 		"yaab": "^0.2.0"
 	},
 	"scripts": {
-		"prestart":
-			"tay -i src/tokens.yaml -o public/tokens.css -o src/tokens.flat.json",
+		"prestart": "tay -i src/tokens.yaml -o public/tokens.css -o src/tokens.flat.json",
 		"start": "react-scripts start",
-		"prebuild":
-			"tay -i src/tokens.yaml -o public/tokens.css -o src/tokens.flat.json",
+		"prebuild": "tay -i src/tokens.yaml -o public/tokens.css -o src/tokens.flat.json",
 		"build": "react-scripts build",
 		"test": "react-scripts test --env=jsdom",
 		"eject": "react-scripts eject",
@@ -43,6 +41,9 @@
 		"react-toggle": "^4.0.2"
 	},
 	"lint-staged": {
-		"*.js": ["eslint", "git add"]
+		"*.js": [
+			"eslint",
+			"git add"
+		]
 	}
 }
