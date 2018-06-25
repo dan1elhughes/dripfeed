@@ -8,7 +8,8 @@ const axios = require('axios');
 const app = new Koa();
 const router = new Router();
 
-const port = 3001;
+/* global process */
+const port = process.env.PORT || 3001;
 
 router.get('/api/proxy', async ctx => {
 	const { authorization } = ctx.request.headers;
