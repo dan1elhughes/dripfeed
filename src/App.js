@@ -35,9 +35,9 @@ const offices = [
 	{ name: 'Chicago', woeId: 2379574, locale: 'America/Chicago' },
 	{ name: 'Reading', woeId: 22484804, locale: 'Europe/London' },
 	{
-		name: 'Hong Kong',
-		woeId: 12467924,
-		locale: 'Asia/Hong_Kong',
+		name: 'Budapest',
+		woeId: 804365,
+		locale: 'Europe/Budapest',
 	},
 	{
 		name: 'Melbourne',
