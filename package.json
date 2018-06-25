@@ -5,7 +5,7 @@
 	"dependencies": {
 		"@koa/cors": "^2.2.1",
 		"axios": "^0.18.0",
-		"forecast-promise": "^1.1.0",
+		"forecast-promise": "^1.2.0",
 		"koa": "^2.5.0",
 		"koa-router": "^7.4.0",
 		"koa-static": "^4.0.3",
