@@ -20,9 +20,11 @@
 		"yaab": "^0.2.0"
 	},
 	"scripts": {
-		"prestart": "tay -i src/tokens.yaml -o public/tokens.css -o src/tokens.flat.json",
+		"prestart":
+			"tay -i src/tokens.yaml -o public/tokens.css -o src/tokens.flat.json",
 		"start": "react-scripts start",
-		"prebuild": "tay -i src/tokens.yaml -o public/tokens.css -o src/tokens.flat.json",
+		"prebuild":
+			"tay -i src/tokens.yaml -o public/tokens.css -o src/tokens.flat.json",
 		"build": "react-scripts build",
 		"test": "react-scripts test --env=jsdom",
 		"eject": "react-scripts eject",
@@ -41,9 +43,7 @@
 		"react-toggle": "^4.0.2"
 	},
 	"lint-staged": {
-		"*.js": [
-			"eslint",
-			"git add"
-		]
-	}
+		"*.js": ["eslint", "git add"]
+	},
+	"proxy": "http://localhost:3001"
 }
