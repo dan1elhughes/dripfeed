@@ -11,7 +11,6 @@ import Tasks from './components/Tasks/Tasks';
 import Tile from './components/Tile/Tile';
 
 import 'weathericons/css/weather-icons.min.css';
-import 'react-toggle/style.css';
 
 import theme from './theme';
 

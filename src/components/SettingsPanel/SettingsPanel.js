@@ -2,13 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import bindMethods from 'yaab';
 
-import Toggle from 'react-toggle';
-
-import { StyledPanel, StyledPullTab } from './SettingsPanel.styles';
+import { StyledPanel, Overlay, StyledPullTab } from './SettingsPanel.styles';
 
 import Account from '../Account/Account';
 import Modal from '../Modal/Modal';
 import Header from '../Header/Header';
+import Toggle, { ToggleContainer } from '../Toggle/Toggle';
 
 export default class SettingsPanel extends React.Component {
 	static get propTypes() {
@@ -114,6 +113,7 @@ export default class SettingsPanel extends React.Component {
 							onClick={() => this.deleteAccount(account)}
 						/>
 					))}
+					<Header level={2}>Add/remove accounts</Header>
 					<Account
 						type="jira"
 						onClick={() => this.showAccountAddModal('jira')}
@@ -129,16 +129,19 @@ export default class SettingsPanel extends React.Component {
 							onClick={() => this.showAccountAddModal('forecast')}
 						/>
 					)}
-					<label>
+					<button onClick={this.save}>Save</button>
+					<Header level={2}>Settings</Header>
+					<ToggleContainer>
 						<Toggle
+							id="theme-toggler"
 							checked={this.props.theme.isDarkMode}
 							onChange={e => this.props.onThemeChange(e.target.checked)}
 							icons={false}
 						/>
-						<span>Dark mode</span>
-					</label>
-					<button onClick={this.save}>Save</button>
+						<label htmlFor="theme-toggler">Theme</label>
+					</ToggleContainer>
 				</StyledPanel>
+				<Overlay isOpen={this.state.isOpen} />
 				<Modal isVisible={this.state.modalIsVisible}>
 					<Header level={2} centered={true}>
 						Add account
