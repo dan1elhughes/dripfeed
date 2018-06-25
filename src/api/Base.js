@@ -13,7 +13,7 @@ export default class Base {
 
 		const esc = encodeURIComponent;
 		const url =
-			'http://localhost:3001/api/proxy/?' +
+			'/api/proxy/?' +
 			Object.keys(allParams)
 				.map(key => `${esc(key)}=${esc(allParams[key])}`)
 				.join('&');
