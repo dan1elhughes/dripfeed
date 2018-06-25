@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import { color } from '../../styles/tokens.json';
-
 export const StyledAvatar = styled.img`
 	width: 70px;
 	height: auto;
@@ -18,5 +16,5 @@ export const StyledName = styled.h3`
 export const StyledSubText = styled.p`
 	margin-top: 0px;
 	text-transform: uppercase;
-	color: ${color.text.dim};
+	color: var(--color-text-dim);
 `;

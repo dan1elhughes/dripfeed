@@ -13,14 +13,12 @@ color:
         header:
             dark: "white"
             light: "black"
-        dim: rgba(255, 255, 255, 0.7)
+        dim: "#646464"
 font:
     heading:
-        url: "https://fonts.googleapis.com/css?family=Open+Sans"
         family: Open Sans, sans-serif
         weight: 700
     body:
-        url: "https://fonts.googleapis.com/css?family=Open+Sans"
         family: Open Sans, sans-serif
         weight: 300
 spacing:

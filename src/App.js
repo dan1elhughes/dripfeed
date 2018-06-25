@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import bindMethods from 'yaab';
 import styled, { injectGlobal, ThemeProvider } from 'styled-components';
 
-import { color, font, spacing } from './styles/tokens.json';
-
 import Store from './Store';
 
 import LocationTile from './components/LocationTile/LocationTile';
@@ -19,16 +17,16 @@ import themed from './themed';
 
 const StyledContainer = styled.div`
 	transition: background-color 0.25s;
-	background-color: ${themed(color.background.fill)};
+	background-color: ${themed('color-background-fill')};
 
-	color: ${color.text.strong};
+	color: var(--color-text-strong);
 	box-sizing: border-box;
 	display: grid;
-	grid-gap: ${spacing.large};
+	grid-gap: var(--spacing-large);
 	grid-template-columns: repeat(4, 1fr);
 	grid-template-rows: repeat(3, 1fr);
 	height: 100vh;
-	padding: ${spacing.large};
+	padding: var(--spacing-large);
 `;
 
 const store = new Store();
@@ -49,10 +47,10 @@ const offices = [
 ];
 
 injectGlobal`
-	@import '${font.body.url}';
+	@import "https://fonts.googleapis.com/css?family=Open+Sans";
 
 	#root {
-		font-family: ${font.body.family};
+		font-family: var(--font-body-family);
 	}
 `;
 

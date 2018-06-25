@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import { spacing } from '../../styles/tokens.json';
-
 const getFontSizeFromProps = props =>
 	({
 		1: '30px',
@@ -14,7 +12,7 @@ export default function createStyledHeader(level) {
 		text-transform: uppercase;
 		font-weight: normal;
 		font-size: ${getFontSizeFromProps};
-		margin: 0 0 ${spacing.medium} 0;
+		margin: 0 0 var(--spacing-medium) 0;
 		text-align: ${props => (props.centered ? 'center' : 'inherit')};
 	`;
 }

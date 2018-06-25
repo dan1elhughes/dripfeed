@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import { color, spacing } from '../../styles/tokens.json';
-
 import JiraLogo from './assets/logo-jira.png';
 import BitbucketLogo from './assets/logo-bitbucket.png';
 import ForecastLogo from './assets/logo-forecast.png';
@@ -12,7 +10,7 @@ export const StyledTip = styled.span`
 	position: absolute;
 	top: 36%;
 	transition: opacity 0.25s;
-	right: ${spacing.small};
+	right: var(--spacing-small);
 `;
 
 export const StyledAccount = styled.div`
@@ -30,8 +28,8 @@ export const StyledAccount = styled.div`
 	color: #ffffff;
 	cursor: pointer;
 	font-size: 14px;
-	margin-bottom: ${spacing.medium};
-	padding: ${spacing.medium};
+	margin-bottom: var(--spacing-medium);
+	padding: var(--spacing-medium);
 	position: relative;
 	text-transform: uppercase;
 	transition: background 0.25s, color 0.25s;
@@ -45,7 +43,7 @@ export const StyledAccount = styled.div`
 			if (props.active) {
 				return '#ff6666';
 			} else {
-				return `${color.text.positive}`;
+				return `var(--color-text-positive)`;
 			}
 		}};
 

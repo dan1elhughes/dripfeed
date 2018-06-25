@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import { color, spacing } from '../../styles/tokens.json';
-
 import chevron from './assets/SettingPanel-Chevron.png';
 
 export const width = 400;
@@ -14,24 +12,24 @@ export const StyledPanel = styled.div`
 	top: 0;
 	right: 0;
 	width: ${width}px;
-	padding: ${spacing.large};
+	padding: var(--spacing-large);
 	text-align: center;
 	transition: transform 0.5s;
 	transform: translateX(
 		${props =>
-			props.isOpen ? '0px' : `calc(${width}px + calc(${spacing.large})*2)`}
+			props.isOpen ? '0px' : `calc(${width}px + calc(var(--spacing.large)*2))`}
 	);
 	button {
 		background: #ffffff;
 		border: 0;
 		border-radius: 5px;
 		font-size: 14px;
-		padding: ${spacing.medium};
+		padding: var(--spacing-medium);
 		text-transform: uppercase;
 		transition: background 0.25s, color 0.25s;
 		width: 100%;
 		&:hover {
-			background: ${color.text.positive};
+			background: var(--color-text-positive);
 			color: #ffffff;
 			cursor: pointer;
 		}

@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 
-import { color } from '../../styles/tokens.json';
-
 export const StyledTaskItem = styled.p`
-	border-bottom: 3px solid ${color.background.fill};
+	border-bottom: 3px solid var(--color-background-fill);
 	margin: 0;
 	padding: 1em;
 	cursor: pointer;
