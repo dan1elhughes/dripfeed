@@ -13,11 +13,11 @@ import Tile from './components/Tile/Tile';
 import 'weathericons/css/weather-icons.min.css';
 import 'react-toggle/style.css';
 
-import themed from './themed';
+import theme from './theme';
 
 const StyledContainer = styled.div`
 	transition: background-color 0.25s;
-	background-color: ${themed('color-background-fill')};
+	background-color: ${theme('color-background-fill')};
 
 	color: var(--color-text-strong);
 	box-sizing: border-box;

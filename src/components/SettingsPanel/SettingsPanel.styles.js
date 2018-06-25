@@ -17,7 +17,7 @@ export const StyledPanel = styled.div`
 	transition: transform 0.5s;
 	transform: translateX(
 		${props =>
-			props.isOpen ? '0px' : `calc(${width}px + calc(var(--spacing.large)*2))`}
+			props.isOpen ? '0px' : `calc(${width}px + calc(var(--spacing-large)*2))`}
 	);
 	button {
 		background: #ffffff;

@@ -1,0 +1,23 @@
+{
+	"color-background-fill-dark": "#191D25",
+	"color-background-fill-light": "#FAFBFF",
+	"color-background-tile-dark": "#24292F",
+	"color-background-tile-light": "#FFFFFF",
+	"color-text-positive": "#50C878",
+	"color-text-negative": "#F70087",
+	"color-text-header-dark": "white",
+	"color-text-header-light": "black",
+	"color-text-dim": "#646464",
+	"font-heading-family": "Open Sans, sans-serif",
+	"font-heading-weight": "700",
+	"font-body-family": "Open Sans, sans-serif",
+	"font-body-weight": "300",
+	"spacing-large": "30px",
+	"spacing-medium": "20px",
+	"spacing-small": "10px",
+	"radius-large": "15px",
+	"radius-medium": "10px",
+	"radius-small": "5px",
+	"shadow-dark": "rgba(0, 0, 0, 0)",
+	"shadow-light": "#f0f3ff"
+}
