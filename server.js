@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 const Koa = require('koa');
 const Router = require('koa-router');
+const koaStatic = require('koa-static');
 const cors = require('@koa/cors');
 const axios = require('axios');
 
@@ -30,5 +31,6 @@ router.get('/api/proxy', async ctx => {
 app.use(cors());
 app.use(router.routes());
 app.use(router.allowedMethods());
+app.use(koaStatic('build'));
 app.listen(port);
 console.log(`Listening on ${port}`);
