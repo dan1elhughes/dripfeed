@@ -3,6 +3,7 @@ const Koa = require('koa');
 const Router = require('koa-router');
 const koaStatic = require('koa-static');
 const cors = require('@koa/cors');
+const enforceHttps = require('koa-sslify');
 const axios = require('axios');
 
 const app = new Koa();
@@ -29,6 +30,14 @@ router.get('/api/proxy', async ctx => {
 	}
 });
 
+if (process.env.NODE_ENV === 'production') {
+	// Force HTTPS on all page
+	app.use(
+		enforceHttps({
+			trustProtoHeader: true,
+		})
+	);
+}
 app.use(cors());
 app.use(router.routes());
 app.use(router.allowedMethods());
