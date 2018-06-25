@@ -96,6 +96,7 @@ export default class App extends Component {
 				<ThemeProvider theme={theme}>
 					<React.Fragment>
 						<StyledContainer>
+							<Tile component={Tasks} settings={settings} />
 							{offices.map(office => (
 								<Tile
 									key={office.name}
@@ -103,7 +104,6 @@ export default class App extends Component {
 									office={office}
 								/>
 							))}
-							<Tile component={Tasks} settings={settings} />
 							<Tile component={OutTile} settings={settings} />
 						</StyledContainer>
 						<SettingsPanel
