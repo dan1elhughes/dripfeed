@@ -21,6 +21,7 @@ const StyledContainer = styled.div`
 	color: var(--color-text-strong);
 	box-sizing: border-box;
 	display: grid;
+	grid-auto-flow: column;
 	grid-gap: var(--spacing-large);
 	grid-template-columns: repeat(4, 1fr);
 	grid-template-rows: repeat(3, 1fr);
@@ -31,7 +32,6 @@ const StyledContainer = styled.div`
 const store = new Store();
 
 const offices = [
-	{ name: 'Chicago', woeId: 2379574, locale: 'America/Chicago' },
 	{ name: 'Reading', woeId: 22484804, locale: 'Europe/London' },
 	{
 		name: 'Budapest',
@@ -96,7 +96,6 @@ export default class App extends Component {
 				<ThemeProvider theme={theme}>
 					<React.Fragment>
 						<StyledContainer>
-							<Tile component={Tasks} settings={settings} />
 							{offices.map(office => (
 								<Tile
 									key={office.name}
@@ -104,6 +103,7 @@ export default class App extends Component {
 									office={office}
 								/>
 							))}
+							<Tile component={Tasks} settings={settings} />
 							<Tile component={OutTile} settings={settings} />
 						</StyledContainer>
 						<SettingsPanel

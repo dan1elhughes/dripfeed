@@ -7,11 +7,11 @@ import moment from 'moment';
 
 import Header from '../Header/Header';
 
-import { StyledAvatar, StyledName, StyledSubText } from './OutTile.styles';
+import { StyledName, StyledSubText } from './OutTile.styles';
 
 export default class OutTile extends React.Component {
 	static get layout() {
-		return { width: 2, height: 1 };
+		return { width: 1, height: 3 };
 	}
 
 	static get propTypes() {
@@ -83,7 +83,7 @@ export default class OutTile extends React.Component {
 			.map(assignment => {
 				const { start_date, end_date, person_id } = assignment;
 
-				const { first_name, last_name, avatar_url } = lookup.get(person_id);
+				const { first_name, last_name } = lookup.get(person_id);
 
 				return {
 					starts: moment(start_date).diff(today, 'days'),
@@ -91,7 +91,6 @@ export default class OutTile extends React.Component {
 					mStarts: moment(start_date),
 					mEnds: moment(end_date),
 					name: `${first_name} ${last_name}`,
-					avatarUrl: avatar_url,
 				};
 			})
 			.sort((a, b) => a.starts - b.starts);
@@ -133,8 +132,7 @@ export default class OutTile extends React.Component {
 					</Header>
 				)}
 				{outToday.map(holiday => (
-					<div key={holiday.name + holiday.starts} style={{ clear: 'both' }}>
-						<StyledAvatar src={holiday.avatarUrl} />
+					<div key={holiday.name + holiday.starts}>
 						<StyledName>{holiday.name}</StyledName>
 						<StyledSubText>{this.getHolidayText(holiday)}</StyledSubText>
 					</div>
@@ -146,7 +144,6 @@ export default class OutTile extends React.Component {
 				)}
 				{outSoon.map(holiday => (
 					<div key={holiday.name + holiday.starts} style={{ clear: 'both' }}>
-						<StyledAvatar src={holiday.avatarUrl} />
 						<StyledName>{holiday.name}</StyledName>
 						<StyledSubText>{this.getHolidayText(holiday)}</StyledSubText>
 					</div>
