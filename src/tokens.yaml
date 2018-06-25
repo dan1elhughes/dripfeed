@@ -1,5 +1,7 @@
 ---
 color:
+    white: "#FFFFFF"
+    black: "#000000"
     background:
         fill:
             dark: "#191D25"

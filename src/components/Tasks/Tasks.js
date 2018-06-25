@@ -59,7 +59,9 @@ export default class Tasks extends React.Component {
 
 		return (
 			<div className="Tasks">
-				<Header level={2}>Tasks</Header>
+				<Header level={2} centered={true}>
+					Tasks
+				</Header>
 				{items.map(({ key: id, ...item }) => (
 					<Task key={id} id={id} {...item} />
 				))}
