@@ -2,12 +2,6 @@ import styled from 'styled-components';
 
 import { color } from '../../styles/tokens.json';
 
-export const StyledHeader = styled.h2`
-	text-transform: uppercase;
-	font-weight: normal;
-	margin: 0;
-`;
-
 export const StyledAvatar = styled.img`
 	width: 70px;
 	height: auto;

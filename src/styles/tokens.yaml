@@ -1,13 +1,19 @@
 ---
 color:
     background:
-        fill: "#191D25"
-        tile: "#24292F"
+        fill:
+            dark: "#191D25"
+            light: "#FAFBFF"
+        tile:
+            dark: "#24292F"
+            light: "#FFFFFF"
     text:
         positive: "#50C878"
         negative: "#F70087"
-        strong: white
-        dim: rgba(255, 255, 255, 0.5)
+        header:
+            dark: "white"
+            light: "black"
+        dim: rgba(255, 255, 255, 0.7)
 font:
     heading:
         url: "https://fonts.googleapis.com/css?family=Open+Sans"
@@ -25,3 +31,6 @@ radius:
     large: 15px
     medium: 10px
     small: 5px
+shadow:
+    dark: "rgba(0, 0, 0, 0)"
+    light: "#f0f3ff"

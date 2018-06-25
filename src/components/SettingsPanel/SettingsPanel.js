@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import bindMethods from 'yaab';
 
+import Toggle from 'react-toggle';
+
 import { StyledPanel, StyledPullTab } from './SettingsPanel.styles';
 
 import Account from '../Account/Account';
@@ -13,6 +15,9 @@ export default class SettingsPanel extends React.Component {
 		return {
 			settings: PropTypes.array.isRequired,
 			onChange: PropTypes.func.isRequired,
+			onThemeChange: PropTypes.func.isRequired,
+			theme: PropTypes.shape({ isDarkMode: PropTypes.bool.isRequired })
+				.isRequired,
 		};
 	}
 
@@ -124,6 +129,14 @@ export default class SettingsPanel extends React.Component {
 							onClick={() => this.showAccountAddModal('forecast')}
 						/>
 					)}
+					<label>
+						<Toggle
+							checked={this.props.theme.isDarkMode}
+							onChange={e => this.props.onThemeChange(e.target.checked)}
+							icons={false}
+						/>
+						<span>Dark mode</span>
+					</label>
 					<button onClick={this.save}>Save</button>
 				</StyledPanel>
 				<Modal isVisible={this.state.modalIsVisible}>

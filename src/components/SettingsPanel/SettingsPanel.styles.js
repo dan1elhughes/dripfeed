@@ -6,12 +6,6 @@ import chevron from './assets/SettingPanel-Chevron.png';
 
 export const width = 400;
 
-export const StyledHeader = styled.h2`
-	text-transform: uppercase;
-	font-weight: normal;
-	clear: both;
-`;
-
 export const StyledPanel = styled.div`
 	background: #000000;
 	border-radius: 0 0 0 10px;

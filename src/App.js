@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import bindMethods from 'yaab';
-import styled, { injectGlobal } from 'styled-components';
+import styled, { injectGlobal, ThemeProvider } from 'styled-components';
 
-import { spacing } from './styles/tokens.json';
+import { color, font, spacing } from './styles/tokens.json';
 
 import Store from './Store';
 
@@ -13,20 +13,15 @@ import Tasks from './components/Tasks/Tasks';
 import Tile from './components/Tile/Tile';
 
 import 'weathericons/css/weather-icons.min.css';
+import 'react-toggle/style.css';
 
-import { color, font } from './styles/tokens.json';
-
-injectGlobal`
-	@import '${font.body.url}';
-
-	#root {
-		background-color: ${color.background.fill};
-		font-family: ${font.body.family};
-		color: ${color.text.strong};
-	}
-`;
+import themed from './themed';
 
 const StyledContainer = styled.div`
+	transition: background-color 0.25s;
+	background-color: ${themed(color.background.fill)};
+
+	color: ${color.text.strong};
 	box-sizing: border-box;
 	display: grid;
 	grid-gap: ${spacing.large};
@@ -53,11 +48,22 @@ const offices = [
 	},
 ];
 
+injectGlobal`
+	@import '${font.body.url}';
+
+	#root {
+		font-family: ${font.body.family};
+	}
+`;
+
 export default class App extends Component {
 	static get initialState() {
 		return {
 			issues: [],
 			settings: [],
+			theme: {
+				isDarkMode: true,
+			},
 		};
 	}
 
@@ -79,19 +85,38 @@ export default class App extends Component {
 		this.setState({ settings });
 	}
 
+	onThemeChange(dark) {
+		this.setState(({ theme }) => ({
+			theme: { ...theme, isDarkMode: dark },
+		}));
+	}
+
 	render() {
-		const { settings } = this.state;
+		const { settings, theme } = this.state;
 
 		return (
 			<div className="App">
-				<StyledContainer>
-					{offices.map(office => (
-						<Tile key={office.name} component={LocationTile} office={office} />
-					))}
-					<Tile component={Tasks} settings={settings} />
-					<Tile component={OutTile} settings={settings} />
-				</StyledContainer>
-				<SettingsPanel settings={settings} onChange={this.updateSettings} />
+				<ThemeProvider theme={theme}>
+					<React.Fragment>
+						<StyledContainer>
+							{offices.map(office => (
+								<Tile
+									key={office.name}
+									component={LocationTile}
+									office={office}
+								/>
+							))}
+							<Tile component={Tasks} settings={settings} />
+							<Tile component={OutTile} settings={settings} />
+						</StyledContainer>
+						<SettingsPanel
+							settings={settings}
+							onChange={this.updateSettings}
+							onThemeChange={this.onThemeChange}
+							theme={theme}
+						/>
+					</React.Fragment>
+				</ThemeProvider>
 			</div>
 		);
 	}
