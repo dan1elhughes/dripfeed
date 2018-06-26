@@ -3,6 +3,7 @@ import bindMethods from 'yaab';
 
 import JiraConnector from '../../api/Jira';
 
+import Ellipsis from '../Ellipsis/Ellipsis';
 import Task from '../Task/Task';
 import Header from '../Header/Header';
 
@@ -21,21 +22,22 @@ export default class Tasks extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = { items: [] };
+		this.state = { items: [], loading: [] };
 		bindMethods(this);
 	}
 
 	async componentWillReceiveProps(nextProps) {
 		const { settings } = nextProps;
 
+		const jiraAuths = settings.filter(auth => auth.type === 'jira');
+		this.setState({ loading: jiraAuths.map(auth => auth.name) });
+
 		const tasks = await Promise.all(
-			settings.map(auth => {
-				if (auth.type === 'jira') {
-					return new JiraConnector(auth).tickets(
-						'assignee = currentUser() AND resolution is EMPTY'
-					);
-				}
-			})
+			jiraAuths.map(auth =>
+				new JiraConnector(auth).tickets(
+					'assignee = currentUser() AND resolution is EMPTY'
+				)
+			)
 		);
 
 		const flattenedTasks = [].concat.apply([], tasks).filter(Boolean);
@@ -51,17 +53,24 @@ export default class Tasks extends React.Component {
 
 		this.setState({
 			items: sortedTasks,
+			loading: [],
 		});
 	}
 
 	render() {
-		const { items } = this.state;
+		const { items, loading } = this.state;
 
 		return (
 			<div className="Tasks">
 				<Header level={2} centered={true}>
 					Tasks
 				</Header>
+				{loading.map(name => (
+					<p key={name}>
+						Loading tasks from {name}
+						<Ellipsis />
+					</p>
+				))}
 				{items.map(({ key: id, ...item }) => (
 					<Task key={id} id={id} {...item} />
 				))}
