@@ -22,7 +22,7 @@ export default class Tasks extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = { items: [], loading: [] };
+		this.state = { tasks: [], loading: [] };
 		bindMethods(this);
 	}
 
@@ -32,33 +32,36 @@ export default class Tasks extends React.Component {
 		const jiraAuths = settings.filter(auth => auth.type === 'jira');
 		this.setState({ loading: jiraAuths.map(auth => auth.name) });
 
-		const tasks = await Promise.all(
-			jiraAuths.map(auth =>
-				new JiraConnector(auth).tickets(
-					'assignee = currentUser() AND resolution is EMPTY'
-				)
-			)
-		);
-
-		const flattenedTasks = [].concat.apply([], tasks).filter(Boolean);
-
-		const sortedTasks = flattenedTasks.sort((a, b) => {
-			const order = ['Lowest', 'Low', 'Medium', 'High', 'Highest'];
-
-			const priorityOfA = order.indexOf(a.priority);
-			const priorityOfB = order.indexOf(b.priority);
-
-			return priorityOfB - priorityOfA;
-		});
-
-		this.setState({
-			items: sortedTasks,
-			loading: [],
+		jiraAuths.forEach(auth => {
+			new JiraConnector(auth)
+				.tickets('assignee = currentUser() AND resolution is EMPTY')
+				.then(newTasks => {
+					this.setState(
+						({ tasks, loading }) => ({
+							tasks: [...tasks, ...newTasks],
+							loading: loading.filter(name => name !== auth.name),
+						}),
+						this.sortTasks
+					);
+				});
 		});
 	}
 
+	sortTasks() {
+		const order = ['Lowest', 'Low', 'Medium', 'High', 'Highest'];
+
+		this.setState(({ tasks }) => ({
+			tasks: tasks.slice().sort((a, b) => {
+				const priorityOfA = order.indexOf(a.priority);
+				const priorityOfB = order.indexOf(b.priority);
+
+				return priorityOfB - priorityOfA;
+			}),
+		}));
+	}
+
 	render() {
-		const { items, loading } = this.state;
+		const { tasks, loading } = this.state;
 
 		return (
 			<div className="Tasks">
@@ -71,7 +74,7 @@ export default class Tasks extends React.Component {
 						<Ellipsis />
 					</p>
 				))}
-				{items.map(({ key: id, ...item }) => (
+				{tasks.map(({ key: id, ...item }) => (
 					<Task key={id} id={id} {...item} />
 				))}
 			</div>
