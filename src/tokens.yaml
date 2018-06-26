@@ -16,6 +16,8 @@ color:
             dark: "white"
             light: "black"
         dim: "#646464"
+    button:
+        negative: "#DB0011"
 font:
     heading:
         family: Open Sans, sans-serif

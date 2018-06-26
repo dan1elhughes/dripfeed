@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import theme from '../../theme';
-
 const getFontSizeFromProps = props =>
 	({
 		1: '30px',
@@ -11,7 +9,6 @@ const getFontSizeFromProps = props =>
 
 export default function createStyledHeader(level) {
 	return styled[`h${level}`]`
-		color: ${theme('color-text-header')};
 		text-transform: uppercase;
 		font-weight: normal;
 		font-size: ${getFontSizeFromProps};

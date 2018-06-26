@@ -59,9 +59,10 @@ export default class SettingsPanel extends React.Component {
 	}
 
 	closeModal() {
-		this.setState({
+		this.setState(({ form }) => ({
 			modalIsVisible: false,
-		});
+			form: { ...form, type: undefined },
+		}));
 	}
 
 	addAccount() {
@@ -142,7 +143,10 @@ export default class SettingsPanel extends React.Component {
 					</ToggleContainer>
 				</StyledPanel>
 				<Overlay isOpen={this.state.isOpen} />
-				<Modal isVisible={this.state.modalIsVisible}>
+				<Modal
+					isVisible={this.state.modalIsVisible}
+					type={this.state.form.type}
+				>
 					<Header level={2} centered={true}>
 						Add account
 					</Header>
@@ -170,9 +174,14 @@ export default class SettingsPanel extends React.Component {
 						name="password"
 						placeholder="Password"
 					/>
-					<button onClick={this.addAccount}>Add account</button>
-					<button onClick={this.closeModal}>Cancel</button>
+					<div className="ButtonContainer">
+						<button onClick={this.addAccount}>Add account</button>
+						<button className="Cancel" onClick={this.closeModal}>
+							Cancel
+						</button>
+					</div>
 				</Modal>
+				<Overlay isOpen={this.state.isOpen} />
 			</React.Fragment>
 		);
 	}

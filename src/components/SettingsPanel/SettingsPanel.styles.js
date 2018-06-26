@@ -2,15 +2,12 @@ import styled from 'styled-components';
 
 import theme from '../../theme';
 
-import BlackChevron from './assets/SettingPanel-Chevron-Black.svg';
-import WhiteChevron from './assets/SettingPanel-Chevron-White.svg';
-
 export const width = 400;
 
 export const StyledPanel = styled.div`
 	background-color: ${theme('color-background-tile')};
 	border-radius: 0 0 0 10px;
-	color: #ffffff;
+	color: ${theme('color-text-header')};
 	position: fixed;
 	top: 0;
 	right: 0;
@@ -18,7 +15,7 @@ export const StyledPanel = styled.div`
 	width: ${width}px;
 	padding: var(--spacing-large);
 	text-align: center;
-	transition: transform 0.5s, background-color 0.5s;
+	transition: transform 0.5s, background-color 0.5s, color 0.5s;
 	transform: translateX(
 		${props =>
 			props.isOpen ? '0px' : `calc(${width}px + calc(var(--spacing-large)*2))`}
@@ -38,7 +35,7 @@ export const StyledPanel = styled.div`
 		&:hover {
 			background: var(--color-text-positive);
 			border: 1px solid var(--color-text-positive);
-			color: #ffffff;
+			color: var(--color-white);
 			cursor: pointer;
 		}
 	}
@@ -64,7 +61,7 @@ export const StyledPullTab = styled.div`
 			? theme('color-background-tile')(props)
 			: 'var(--color-black);'};
 	border-radius: 10px 0 0 10px;
-	color: #ffffff;
+	color: var(--color-white);
 	cursor: pointer;
 	position: absolute;
 	left: -50px;
@@ -75,20 +72,14 @@ export const StyledPullTab = styled.div`
 	top: 0;
 	transition: background-color 0.5s;
 	&:after {
-		background: url(${props =>
-				props.isOpen ? { WhiteChevron } : { BlackChevron }})
-			no-repeat 50% 50%
-			${props =>
-				props.isOpen
-					? theme('color-background-tile')(props)
-					: 'var(--color-black);'};
-		background-size: 50%;
-		content: '.';
+		color: var(--color-white);
+		content: '<';
 		display: block;
 		transition: transform 0.5s;
-		transform: rotate(${props => (props.isOpen ? '180deg' : '0deg')});
-		text-indent: -9999px;
+		transform: rotate(${props => (props.isOpen ? '-180deg' : '0deg')});
+		transform-origin: center;
 		height: 100%;
 		width: 100%;
+		line-height: 0.8125em;
 	}
 `;
