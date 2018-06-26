@@ -1,5 +1,12 @@
 import React from 'react';
+import styled from 'styled-components';
 import bindMethods from 'yaab';
+
+const StyledEllipsis = styled.span`
+	width: 1px;
+	overflow: visible;
+	display: inline-block;
+`;
 
 export default class Ellipsis extends React.Component {
 	constructor(props) {
@@ -25,11 +32,11 @@ export default class Ellipsis extends React.Component {
 	render() {
 		const { count } = this.state;
 		return (
-			<span className="Ellipsis">
+			<StyledEllipsis className="Ellipsis">
 				{Array(count)
 					.fill('.')
 					.join('')}
-			</span>
+			</StyledEllipsis>
 		);
 	}
 }
