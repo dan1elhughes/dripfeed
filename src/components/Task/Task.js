@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import bindMethods from 'yaab';
 
-import { StyledTaskItem, StyledTaskExpandedView } from './Task.styles';
+import { StyledTaskItem, StyledTaskInterior } from './Task.styles';
 
 export default class Task extends React.Component {
 	static get propTypes() {
@@ -10,6 +10,7 @@ export default class Task extends React.Component {
 			id: PropTypes.string.isRequired,
 			summary: PropTypes.string.isRequired,
 			description: PropTypes.string,
+			priority: PropTypes.oneOf(['Highest', 'High', 'Medium', 'Low', 'Lowest']),
 		};
 	}
 
@@ -26,19 +27,19 @@ export default class Task extends React.Component {
 	}
 
 	render() {
-		const { id, summary } = this.props;
+		const { id, summary, priority } = this.props;
+		const { isExpanded } = this.state;
 		return (
-			<div className="Task">
-				<StyledTaskItem onClick={this.toggleExpandedView}>
-					[{id}] {summary}
-				</StyledTaskItem>
-				<StyledTaskExpandedView isOpen={this.state.isExpanded}>
+			<StyledTaskItem
+				onClick={this.toggleExpandedView}
+				isOpen={isExpanded}
+				priority={priority}
+			>
+				[{id}] {summary}
+				<StyledTaskInterior isOpen={isExpanded}>
 					<div dangerouslySetInnerHTML={{ __html: this.props.description }} />
-					<pre>
-						<code>{JSON.stringify(this.props, null, 4)}</code>
-					</pre>
-				</StyledTaskExpandedView>
-			</div>
+				</StyledTaskInterior>
+			</StyledTaskItem>
 		);
 	}
 }

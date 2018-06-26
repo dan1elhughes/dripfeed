@@ -38,3 +38,9 @@ overlay:
     background:
         dark: "rgba(255, 255, 255, 0.3)"
         light: "rgba(0, 0, 0, 0.3)"
+priority:
+    lowest: "#303F9F"
+    low: "#0288D1"
+    medium: "#8BC34A"
+    high: "#FFA000"
+    highest: "#FF5722"
