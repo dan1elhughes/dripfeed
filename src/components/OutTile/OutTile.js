@@ -15,11 +15,14 @@ export default class OutTile extends React.Component {
 	}
 
 	static get propTypes() {
-		return { pollRate: PropTypes.number.isRequired };
+		return {
+			pollRate: PropTypes.number.isRequired,
+			holidayId: PropTypes.number.isRequired,
+		};
 	}
 
 	static get defaultProps() {
-		return { pollRate: 60 * 30 };
+		return { pollRate: 60 * 30, holidayId: 1047482 };
 	}
 
 	constructor(props) {
@@ -63,8 +66,10 @@ export default class OutTile extends React.Component {
 	async fetchHolidayBookings() {
 		if (!this.forecastInstance) return false;
 
+		const { holidayId } = this.props;
+
 		const startDate = new Date();
-		const endDate = new Date(startDate.getTime() + 7 * 24 * 60 * 60 * 1000);
+		const endDate = new Date(startDate.getTime() + 3 * 24 * 60 * 60 * 1000);
 
 		const [assignments, people] = await Promise.all([
 			this.forecastInstance.assignments({ startDate, endDate }),
@@ -72,80 +77,60 @@ export default class OutTile extends React.Component {
 		]);
 
 		const holidayAssignments = assignments.filter(
-			_ => _.project_id === 1047482 && _.person_id !== null
+			_ => _.project_id === holidayId && _.person_id !== null
 		);
 
 		const lookup = new Map(people.map(({ id, ...rest }) => [id, rest]));
 
-		const today = moment();
-
 		const holidays = holidayAssignments
 			.map(assignment => {
 				const { start_date, end_date, person_id } = assignment;
-
 				const { first_name, last_name } = lookup.get(person_id);
 
-				return {
-					starts: moment(start_date).diff(today, 'days'),
-					ends: moment(end_date).diff(today, 'days'),
-					mStarts: moment(start_date),
-					mEnds: moment(end_date),
-					name: `${first_name} ${last_name}`,
-				};
+				const start = moment(start_date);
+				const end = moment(end_date);
+
+				const days = [];
+
+				for (
+					let day = moment(start);
+					day.diff(end, 'days') <= 0;
+					day.add(1, 'days')
+				) {
+					if (moment().diff(day, 'days') <= 0) {
+						days.push(moment(day));
+					}
+				}
+
+				return { name: `${first_name} ${last_name}`, days };
 			})
-			.sort((a, b) => a.starts - b.starts);
+
+			.sort((a, b) => a.days[0].diff(b.days[0], 'days'));
 
 		this.setState({ holidays });
-	}
-
-	getHolidayText({ starts, mEnds }) {
-		const days = d => (d > 1 ? 'days' : 'day');
-
-		if (mEnds.diff(moment(), 'hours') <= 0) {
-			return 'Back tomorrow';
-		}
-
-		if (starts > 0) {
-			return `in ${starts + 1} ${days(starts + 1)}`;
-		}
-
-		// Add one day because they are back
-		// on the day after the holiday ends
-		return 'Back ' + mEnds.add(1, 'day').format('dddd');
 	}
 
 	render() {
 		const { holidays } = this.state;
 
-		const outToday = holidays.filter(holiday => holiday.starts <= 0);
-		const outSoon = holidays.filter(holiday => holiday.starts > 0);
 		return (
 			<div className="OutTile">
+				<Header level={2} centered={true}>
+					Holidays
+				</Header>
 				{holidays.length === 0 && (
-					<Header level={2} centered={true}>
+					<Header level={3} centered={true}>
 						No holidays found
 					</Header>
 				)}
-				{outToday.length > 0 && (
-					<Header level={2} centered={true}>
-						Out today
-					</Header>
-				)}
-				{outToday.map(holiday => (
-					<div key={holiday.name + holiday.starts}>
-						<StyledName>{holiday.name}</StyledName>
-						<StyledSubText>{this.getHolidayText(holiday)}</StyledSubText>
-					</div>
-				))}
-				{outSoon.length > 0 && (
-					<Header level={2} centered={true}>
-						Out soon
-					</Header>
-				)}
-				{outSoon.map(holiday => (
-					<div key={holiday.name + holiday.starts} style={{ clear: 'both' }}>
-						<StyledName>{holiday.name}</StyledName>
-						<StyledSubText>{this.getHolidayText(holiday)}</StyledSubText>
+				{holidays.map(({ name, days }) => (
+					<div key={name + days[0].format('DD-MM-YYYY')}>
+						<StyledName>{name}</StyledName>
+						{days.map(day => (
+							<StyledSubText key={day.format('DD-MM-YYYY')}>
+								{day.format('ddd Do MMM')}
+							</StyledSubText>
+						))}
 					</div>
 				))}
 			</div>
