@@ -1,17 +1,35 @@
 import styled from 'styled-components';
 
-export const StyledTaskItem = styled.p`
-	border-bottom: 3px solid var(--color-background-fill);
-	margin: 0;
+const getLeftBorder = props => {
+	const { priority } = props;
+
+	return `10px solid var(--priority-${priority.toLowerCase()})`;
+};
+
+const getBottomBorder = props => {
+	const { isOpen } = props;
+
+	if (isOpen) {
+		return '1px solid grey';
+	}
+
+	return '3px solid var(--color-background-fill)';
+};
+
+export const StyledTaskItem = styled.div`
+	border: 1px solid ${props => (props.isOpen ? 'grey' : 'transparent')};
+	border-bottom: ${props => getBottomBorder(props)};
+	border-left: ${props => getLeftBorder(props)};
+	text-align: left;
+	margin-bottom: 1em;
 	padding: 1em;
 	cursor: pointer;
-	text-align: left;
 	&:hover {
 		background: #444;
 	}
 `;
 
-export const StyledTaskExpandedView = styled.div`
+export const StyledTaskInterior = styled.div`
 	height: ${props => (props.isOpen ? 'auto' : '0')};
 	overflow: hidden;
 `;
