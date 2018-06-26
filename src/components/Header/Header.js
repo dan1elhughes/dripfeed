@@ -11,7 +11,7 @@ const Header = props => {
 Header.propTypes = {
 	children: PropTypes.string,
 	level: PropTypes.number.isRequired,
-	centered: PropTypes.boolean,
+	centered: PropTypes.bool,
 };
 
 Header.defaultProps = {

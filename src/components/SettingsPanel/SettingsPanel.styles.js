@@ -2,12 +2,13 @@ import styled from 'styled-components';
 
 import theme from '../../theme';
 
-import chevron from './assets/SettingPanel-Chevron.png';
+import BlackChevron from './assets/SettingPanel-Chevron-Black.svg';
+import WhiteChevron from './assets/SettingPanel-Chevron-White.svg';
 
 export const width = 400;
 
 export const StyledPanel = styled.div`
-	background: #000000;
+	background-color: ${theme('color-background-tile')};
 	border-radius: 0 0 0 10px;
 	color: #ffffff;
 	position: fixed;
@@ -17,24 +18,26 @@ export const StyledPanel = styled.div`
 	width: ${width}px;
 	padding: var(--spacing-large);
 	text-align: center;
-	transition: transform 0.5s;
+	transition: transform 0.5s, background-color 0.5s;
 	transform: translateX(
 		${props =>
 			props.isOpen ? '0px' : `calc(${width}px + calc(var(--spacing-large)*2))`}
 	);
 	z-index: 2;
 	button {
-		background: #ffffff;
-		border: 0;
+		background: ${theme('color-background-tile')};
+		border: 1px solid ${theme('color-text-header')};
 		border-radius: 5px;
+		color: ${theme('color-text-header')};
 		font-size: 14px;
 		margin-bottom: var(--spacing-medium);
 		padding: var(--spacing-medium);
 		text-transform: uppercase;
-		transition: background 0.25s, color 0.25s;
+		transition: background 0.25s, color 0.25s, border 0.5s;
 		width: 100%;
 		&:hover {
 			background: var(--color-text-positive);
+			border: 1px solid var(--color-text-positive);
 			color: #ffffff;
 			cursor: pointer;
 		}
@@ -56,7 +59,10 @@ export const Overlay = styled.div`
 `;
 
 export const StyledPullTab = styled.div`
-	background-color: #000000;
+	background-color: ${props =>
+		props.isOpen
+			? theme('color-background-tile')(props)
+			: 'var(--color-black);'};
 	border-radius: 10px 0 0 10px;
 	color: #ffffff;
 	cursor: pointer;
@@ -67,8 +73,15 @@ export const StyledPullTab = styled.div`
 	height: 30px;
 	padding: 10px;
 	top: 0;
+	transition: background-color 0.5s;
 	&:after {
-		background: url(${chevron}) no-repeat 50% 50% #000000;
+		background: url(${props =>
+				props.isOpen ? { WhiteChevron } : { BlackChevron }})
+			no-repeat 50% 50%
+			${props =>
+				props.isOpen
+					? theme('color-background-tile')(props)
+					: 'var(--color-black);'};
 		background-size: 50%;
 		content: '.';
 		display: block;

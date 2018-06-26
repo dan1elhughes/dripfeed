@@ -5,7 +5,7 @@ color:
     background:
         fill:
             dark: "#191D25"
-            light: "#FAFBFF"
+            light: "#EEEEEE"
         tile:
             dark: "#24292F"
             light: "#FFFFFF"
@@ -33,7 +33,7 @@ radius:
     small: 5px
 shadow:
     dark: "rgba(0, 0, 0, 0)"
-    light: "#f0f3ff"
+    light: "rgba(0,0,0,.14)"
 overlay:
     background:
         dark: "rgba(255, 255, 255, 0.3)"
