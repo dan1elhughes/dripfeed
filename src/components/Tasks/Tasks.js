@@ -3,6 +3,7 @@ import bindMethods from 'yaab';
 
 import JiraConnector from '../../api/Jira';
 
+import Ellipsis from '../Ellipsis/Ellipsis';
 import Task from '../Task/Task';
 import Header from '../Header/Header';
 
@@ -21,48 +22,59 @@ export default class Tasks extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = { items: [] };
+		this.state = { tasks: [], loading: [] };
 		bindMethods(this);
 	}
 
 	async componentWillReceiveProps(nextProps) {
 		const { settings } = nextProps;
 
-		const tasks = await Promise.all(
-			settings.map(auth => {
-				if (auth.type === 'jira') {
-					return new JiraConnector(auth).tickets(
-						'assignee = currentUser() AND resolution is EMPTY'
+		const jiraAuths = settings.filter(auth => auth.type === 'jira');
+		this.setState({ loading: jiraAuths.map(auth => auth.name) });
+
+		jiraAuths.forEach(auth => {
+			new JiraConnector(auth)
+				.tickets('assignee = currentUser() AND resolution is EMPTY')
+				.then(newTasks => {
+					this.setState(
+						({ tasks, loading }) => ({
+							tasks: [...tasks, ...newTasks],
+							loading: loading.filter(name => name !== auth.name),
+						}),
+						this.sortTasks
 					);
-				}
-			})
-		);
-
-		const flattenedTasks = [].concat.apply([], tasks).filter(Boolean);
-
-		const sortedTasks = flattenedTasks.sort((a, b) => {
-			const order = ['Lowest', 'Low', 'Medium', 'High', 'Highest'];
-
-			const priorityOfA = order.indexOf(a.priority);
-			const priorityOfB = order.indexOf(b.priority);
-
-			return priorityOfB - priorityOfA;
-		});
-
-		this.setState({
-			items: sortedTasks,
+				});
 		});
 	}
 
+	sortTasks() {
+		const order = ['Lowest', 'Low', 'Medium', 'High', 'Highest'];
+
+		this.setState(({ tasks }) => ({
+			tasks: tasks.slice().sort((a, b) => {
+				const priorityOfA = order.indexOf(a.priority);
+				const priorityOfB = order.indexOf(b.priority);
+
+				return priorityOfB - priorityOfA;
+			}),
+		}));
+	}
+
 	render() {
-		const { items } = this.state;
+		const { tasks, loading } = this.state;
 
 		return (
 			<div className="Tasks">
 				<Header level={2} centered={true}>
 					Tasks
 				</Header>
-				{items.map(({ key: id, ...item }) => (
+				{loading.map(name => (
+					<p key={name}>
+						Loading tasks from {name}
+						<Ellipsis />
+					</p>
+				))}
+				{tasks.map(({ key: id, ...item }) => (
 					<Task key={id} id={id} {...item} />
 				))}
 			</div>
