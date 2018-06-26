@@ -1,42 +1,25 @@
-import React from 'react';
-import styled from 'styled-components';
-import bindMethods from 'yaab';
+import styled, { keyframes } from 'styled-components';
 
-const StyledEllipsis = styled.span`
-	width: 1px;
-	overflow: visible;
-	display: inline-block;
+const countAnimation = keyframes`
+	0% {
+		content: '..';
+	}
+	33% {
+		content: '...';
+	}
+	66% {
+		content: '....';
+	}
 `;
 
-export default class Ellipsis extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = { count: 2 };
-		bindMethods(this);
+const StyledEllipsis = styled.span`
+	&:after {
+		content: '..';
+		width: 1px;
+		overflow: visible;
+		display: inline-block;
+		animation: ${countAnimation} 2s infinite;
 	}
+`;
 
-	increment() {
-		this.setState(({ count }) => ({
-			count: count >= 4 ? 2 : count + 1,
-		}));
-	}
-
-	componentDidMount() {
-		this._tick = setInterval(this.increment, 1000);
-	}
-
-	componentWillUnmount() {
-		clearInterval(this._tick);
-	}
-
-	render() {
-		const { count } = this.state;
-		return (
-			<StyledEllipsis className="Ellipsis">
-				{Array(count)
-					.fill('.')
-					.join('')}
-			</StyledEllipsis>
-		);
-	}
-}
+export default StyledEllipsis;
