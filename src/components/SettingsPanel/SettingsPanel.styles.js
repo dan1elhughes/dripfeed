@@ -56,12 +56,11 @@ export const Overlay = styled.div`
 `;
 
 export const StyledPullTab = styled.div`
-	background-color: ${props =>
-		props.isOpen
-			? theme('color-background-tile')(props)
-			: 'var(--color-black);'};
+	background-color: ${theme('color-background-tile')};
 	border-radius: 10px 0 0 10px;
-	color: var(--color-white);
+	box-shadow: 0 0 ${props => (props.isOpen ? '-4px' : '4px')} 0
+		${theme('shadow-tile')};
+	color: ${theme('color-text-header')};
 	cursor: pointer;
 	position: absolute;
 	left: -50px;
@@ -69,17 +68,18 @@ export const StyledPullTab = styled.div`
 	width: 30px;
 	height: 30px;
 	padding: 10px;
-	top: 0;
-	transition: background-color 0.5s;
+	top: 50%;
+	transform: translateY(-50%);
+	transition: background-color 0.5s, box-shadow 0.25s;
 	&:after {
-		color: var(--color-white);
+		color: ${theme('color-text-header')};
 		content: '<';
 		display: block;
-		transition: transform 0.5s;
+		transition: transform 0.5s, color 0.5s;
 		transform: rotate(${props => (props.isOpen ? '-180deg' : '0deg')});
 		transform-origin: center;
 		height: 100%;
 		width: 100%;
-		line-height: 0.8125em;
+		line-height: 0.75em;
 	}
 `;

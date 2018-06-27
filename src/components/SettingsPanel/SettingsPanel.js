@@ -114,7 +114,7 @@ export default class SettingsPanel extends React.Component {
 							onClick={() => this.deleteAccount(account)}
 						/>
 					))}
-					<Header level={2}>Add/remove accounts</Header>
+					<Header level={2}>Add accounts</Header>
 					<Account
 						type="jira"
 						onClick={() => this.showAccountAddModal('jira')}

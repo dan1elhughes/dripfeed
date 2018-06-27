@@ -6,7 +6,7 @@ export const StyledTile = styled.div`
 	transition: color 0.25s, background-color 0.25s, box-shadow 0.25s;
 	color: ${theme('color-text-header')};
 	background-color: ${theme('color-background-tile')};
-	box-shadow: 0 1px 4px 0 ${theme('shadow')};
+	box-shadow: 0 1px 4px 0 ${theme('shadow-tile')};
 	border-radius: var(--radius-large);
 	grid-area: span ${props => props.height} / span ${props => props.width};
 	overflow-y: auto;
