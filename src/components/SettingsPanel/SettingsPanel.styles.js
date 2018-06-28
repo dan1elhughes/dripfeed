@@ -88,3 +88,49 @@ export const PanelContainer = styled.div`
 	height: 100%;
 	overflow-y: auto;
 `;
+
+export const StyledInput = styled.input`
+	background: transparent;
+	border: 0;
+	border-bottom: 1px solid var(--color-white);
+	color: var(--color-white);
+	line-height: 1.25em;
+	margin-bottom: var(--spacing-medium);
+	padding: var(--spacing-small) var(--spacing-small) var(--spacing-small) 0;
+	width: 100%;
+	&::placeholder {
+		color: var(--color-white);
+	}
+`;
+
+export const StyledButton = styled.button`
+	background: transparent;
+	border: 1px solid var(--color-white);
+	border-radius: 5px;
+	color: var(--color-white);
+	font-size: 14px;
+	margin-bottom: var(--spacing-medium);
+	padding: var(--spacing-medium);
+	text-transform: uppercase;
+	transition: background 0.25s, color 0.25s, border 0.5s;
+	&:hover {
+		background: var(--color-text-positive);
+		border: 1px solid var(--color-text-positive);
+		color: var(--color-white);
+		cursor: pointer;
+	}
+`;
+
+export const StyledCancelButton = StyledButton.extend`
+	&:hover {
+		background: var(--color-button-negative);
+		border: 1px solid var(--color-button-negative);
+		color: var(--color-white);
+		cursor: pointer;
+	}
+`;
+
+export const ButtonContainer = styled.div`
+	display: flex;
+	justify-content: space-between;
+`;

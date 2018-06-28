@@ -37,9 +37,6 @@ shadow:
     tile:
         dark: "rgba(255,255,255,.14)"
         light: "rgba(0,0,0,.14)"
-    settingspanel:
-        dark: "rgba(0,0,0,.14)"
-        light: "rgba(0,0,0,.14)"
 overlay:
     background:
         dark: "rgba(255, 255, 255, 0.3)"

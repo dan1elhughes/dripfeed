@@ -7,6 +7,10 @@ import {
 	Overlay,
 	StyledPullTab,
 	PanelContainer,
+	StyledInput,
+	ButtonContainer,
+	StyledButton,
+	StyledCancelButton,
 } from './SettingsPanel.styles';
 
 import Account from '../Account/Account';
@@ -157,36 +161,36 @@ export default class SettingsPanel extends React.Component {
 					<Header level={2} centered={true}>
 						Add account
 					</Header>
-					<input
+					<StyledInput
 						onChange={this.handleFormChange}
 						type="text"
 						name="name"
 						placeholder="Name"
 					/>
-					<input
+					<StyledInput
 						onChange={this.handleFormChange}
 						type="text"
 						name="base"
 						placeholder="API base"
 					/>
-					<input
+					<StyledInput
 						onChange={this.handleFormChange}
 						type="text"
 						name="username"
 						placeholder="Username"
 					/>
-					<input
+					<StyledInput
 						onChange={this.handleFormChange}
 						type="password"
 						name="password"
 						placeholder="Password"
 					/>
-					<div className="ButtonContainer">
-						<button onClick={this.addAccount}>Add account</button>
-						<button className="Cancel" onClick={this.closeModal}>
+					<ButtonContainer>
+						<StyledButton onClick={this.addAccount}>Add account</StyledButton>
+						<StyledCancelButton className="Cancel" onClick={this.closeModal}>
 							Cancel
-						</button>
-					</div>
+						</StyledCancelButton>
+					</ButtonContainer>
 				</Modal>
 				<Overlay isOpen={this.state.isOpen} />
 			</React.Fragment>
