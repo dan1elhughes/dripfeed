@@ -2,7 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import bindMethods from 'yaab';
 
-import { StyledPanel, Overlay, StyledPullTab } from './SettingsPanel.styles';
+import {
+	StyledPanel,
+	Overlay,
+	StyledPullTab,
+	PanelContainer,
+} from './SettingsPanel.styles';
 
 import Account from '../Account/Account';
 import Modal from '../Modal/Modal';
@@ -106,41 +111,43 @@ export default class SettingsPanel extends React.Component {
 			<React.Fragment>
 				<StyledPanel isOpen={this.state.isOpen}>
 					<StyledPullTab onClick={this.toggleOpen} isOpen={this.state.isOpen} />
-					{this.state.settings.map((account, i) => (
+					<PanelContainer>
+						{this.state.settings.map((account, i) => (
+							<Account
+								key={i}
+								type={account.type}
+								name={account.name}
+								onClick={() => this.deleteAccount(account)}
+							/>
+						))}
+						<Header level={2}>Add accounts</Header>
 						<Account
-							key={i}
-							type={account.type}
-							name={account.name}
-							onClick={() => this.deleteAccount(account)}
+							type="jira"
+							onClick={() => this.showAccountAddModal('jira')}
 						/>
-					))}
-					<Header level={2}>Add accounts</Header>
-					<Account
-						type="jira"
-						onClick={() => this.showAccountAddModal('jira')}
-					/>
-					<Account
-						type="bitbucket"
-						onClick={() => this.showAccountAddModal('bitbucket')}
-					/>
-					{this.state.settings.filter(account => account.type === 'forecast')
-						.length === 0 && (
 						<Account
-							type="forecast"
-							onClick={() => this.showAccountAddModal('forecast')}
+							type="bitbucket"
+							onClick={() => this.showAccountAddModal('bitbucket')}
 						/>
-					)}
-					<button onClick={this.save}>Save</button>
-					<Header level={2}>Settings</Header>
-					<ToggleContainer>
-						<Toggle
-							id="theme-toggler"
-							checked={this.props.theme.isDarkMode}
-							onChange={e => this.props.onThemeChange(e.target.checked)}
-							icons={false}
-						/>
-						<label htmlFor="theme-toggler">Theme</label>
-					</ToggleContainer>
+						{this.state.settings.filter(account => account.type === 'forecast')
+							.length === 0 && (
+							<Account
+								type="forecast"
+								onClick={() => this.showAccountAddModal('forecast')}
+							/>
+						)}
+						<button onClick={this.save}>Save</button>
+						<Header level={2}>Settings</Header>
+						<ToggleContainer>
+							<Toggle
+								id="theme-toggler"
+								checked={this.props.theme.isDarkMode}
+								onChange={e => this.props.onThemeChange(e.target.checked)}
+								icons={false}
+							/>
+							<label htmlFor="theme-toggler">Theme</label>
+						</ToggleContainer>
+					</PanelContainer>
 				</StyledPanel>
 				<Overlay isOpen={this.state.isOpen} />
 				<Modal

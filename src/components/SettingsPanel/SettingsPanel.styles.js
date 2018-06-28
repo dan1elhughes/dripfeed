@@ -83,3 +83,8 @@ export const StyledPullTab = styled.div`
 		line-height: 0.75em;
 	}
 `;
+
+export const PanelContainer = styled.div`
+	height: 100%;
+	overflow-y: auto;
+`;
