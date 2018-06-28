@@ -2,7 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import bindMethods from 'yaab';
 
-import { StyledTaskItem, StyledTaskInterior } from './Task.styles';
+import {
+	StyledTaskItem,
+	StyledTaskInterior,
+	StyledSubtext,
+	StyledProfilePicture,
+	StyledTaskMetadata,
+	StyledPriority,
+	StyledTaskTitle,
+} from './Task.styles';
 
 export default class Task extends React.Component {
 	static get propTypes() {
@@ -10,6 +18,11 @@ export default class Task extends React.Component {
 			id: PropTypes.string.isRequired,
 			summary: PropTypes.string.isRequired,
 			description: PropTypes.string,
+			instance: PropTypes.string.isRequired,
+			reporter: PropTypes.shape({
+				photo: PropTypes.string.isRequired,
+				displayName: PropTypes.string.isRequired,
+			}).isRequired,
 			priority: PropTypes.oneOf(['Highest', 'High', 'Medium', 'Low', 'Lowest']),
 		};
 	}
@@ -27,7 +40,7 @@ export default class Task extends React.Component {
 	}
 
 	render() {
-		const { id, summary, priority } = this.props;
+		const { id, summary, priority, instance, reporter } = this.props;
 		const { isExpanded } = this.state;
 		return (
 			<StyledTaskItem
@@ -35,8 +48,21 @@ export default class Task extends React.Component {
 				isOpen={isExpanded}
 				priority={priority}
 			>
-				[{id}] {summary}
+				<StyledTaskTitle isOpen={isExpanded}>
+					[{id}] {summary}
+				</StyledTaskTitle>
 				<StyledTaskInterior isOpen={isExpanded}>
+					<StyledTaskMetadata>
+						<div>
+							<StyledPriority>{priority}</StyledPriority>
+							<StyledSubtext>{instance}</StyledSubtext>
+						</div>
+
+						<div>
+							<StyledProfilePicture src={reporter.photo} />
+							<p>{reporter.displayName}</p>
+						</div>
+					</StyledTaskMetadata>
 					<div dangerouslySetInnerHTML={{ __html: this.props.description }} />
 				</StyledTaskInterior>
 			</StyledTaskItem>

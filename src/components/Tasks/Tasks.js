@@ -30,20 +30,23 @@ export default class Tasks extends React.Component {
 		const { settings } = nextProps;
 
 		const jiraAuths = settings.filter(auth => auth.type === 'jira');
-		this.setState({ loading: jiraAuths.map(auth => auth.name) });
+		this.setState({ tasks: [], loading: jiraAuths.map(auth => auth.name) });
 
 		jiraAuths.forEach(auth => {
-			new JiraConnector(auth)
-				.tickets('assignee = currentUser() AND resolution is EMPTY')
-				.then(newTasks => {
+			new JiraConnector(auth).tickets(
+				'assignee = currentUser() AND resolution is EMPTY',
+				(newTasks, done) => {
 					this.setState(
 						({ tasks, loading }) => ({
 							tasks: [...tasks, ...newTasks],
-							loading: loading.filter(name => name !== auth.name),
+							loading: done
+								? loading.filter(name => name !== auth.name)
+								: loading,
 						}),
 						this.sortTasks
 					);
-				});
+				}
+			);
 		});
 	}
 
@@ -66,7 +69,7 @@ export default class Tasks extends React.Component {
 		return (
 			<div className="Tasks">
 				<Header level={2} centered={true}>
-					Tasks
+					Tasks{tasks.length > 0 ? ` (${tasks.length})` : ''}
 				</Header>
 				{loading.map(name => (
 					<p key={name}>
