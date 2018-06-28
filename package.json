@@ -28,7 +28,7 @@
 		"prestart": "npm run tay",
 		"prebuild": "npm run tay",
 		"build": "react-scripts build",
-		"test": "react-scripts test --env=jsdom",
+		"test": "npm run lint",
 		"eject": "react-scripts eject",
 		"lint": "eslint --ignore-path .gitignore .",
 		"precommit": "lint-staged",
