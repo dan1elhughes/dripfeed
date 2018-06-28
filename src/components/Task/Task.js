@@ -19,7 +19,7 @@ export default class Task extends React.Component {
 			summary: PropTypes.string.isRequired,
 			description: PropTypes.string,
 			instance: PropTypes.string.isRequired,
-			reporter: PropTypes.shape({
+			author: PropTypes.shape({
 				photo: PropTypes.string.isRequired,
 				displayName: PropTypes.string.isRequired,
 			}).isRequired,
@@ -40,7 +40,7 @@ export default class Task extends React.Component {
 	}
 
 	render() {
-		const { id, summary, priority, instance, reporter } = this.props;
+		const { id, summary, priority, instance, author } = this.props;
 		const { isExpanded } = this.state;
 		return (
 			<StyledTaskItem
@@ -59,8 +59,8 @@ export default class Task extends React.Component {
 						</div>
 
 						<div>
-							<StyledProfilePicture src={reporter.photo} />
-							<p>{reporter.displayName}</p>
+							<StyledProfilePicture src={author.photo} />
+							<p>{author.displayName}</p>
 						</div>
 					</StyledTaskMetadata>
 					<div dangerouslySetInnerHTML={{ __html: this.props.description }} />

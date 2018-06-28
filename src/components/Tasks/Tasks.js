@@ -2,6 +2,7 @@ import React from 'react';
 import bindMethods from 'yaab';
 
 import JiraConnector from '../../api/Jira';
+import BitbucketConnector from '../../api/Bitbucket';
 
 import Ellipsis from '../Ellipsis/Ellipsis';
 import Task from '../Task/Task';
@@ -30,7 +31,12 @@ export default class Tasks extends React.Component {
 		const { settings } = nextProps;
 
 		const jiraAuths = settings.filter(auth => auth.type === 'jira');
-		this.setState({ tasks: [], loading: jiraAuths.map(auth => auth.name) });
+		const bitbucketAuths = settings.filter(auth => auth.type === 'bitbucket');
+
+		this.setState({
+			tasks: [],
+			loading: [...jiraAuths, ...bitbucketAuths].map(auth => auth.name),
+		});
 
 		jiraAuths.forEach(auth => {
 			new JiraConnector(auth).tickets(
@@ -47,6 +53,31 @@ export default class Tasks extends React.Component {
 					);
 				}
 			);
+		});
+
+		bitbucketAuths.forEach(auth => {
+			new BitbucketConnector(auth).pullRequests('author', (PRs, done) => {
+				this.setState(
+					({ tasks, loading }) => ({
+						tasks: [...tasks, ...PRs],
+						loading: done
+							? loading.filter(name => name !== auth.name)
+							: loading,
+					}),
+					this.sortTasks
+				);
+			});
+			new BitbucketConnector(auth).pullRequests('reviewer', (PRs, done) => {
+				this.setState(
+					({ tasks, loading }) => ({
+						tasks: [...tasks, ...PRs],
+						loading: done
+							? loading.filter(name => name !== auth.name)
+							: loading,
+					}),
+					this.sortTasks
+				);
+			});
 		});
 	}
 

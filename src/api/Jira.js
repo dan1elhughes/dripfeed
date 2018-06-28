@@ -16,8 +16,8 @@ export default class Jira extends Base {
 			instance,
 			key,
 			priority: fields.priority.name,
-			status: fields.status.name,
-			reporter: {
+			summary: fields.summary,
+			author: {
 				name: fields.reporter.name,
 				displayName: fields.reporter.displayName,
 				photo: `${base}/secure/useravatar?ownerId=${fields.reporter.name}`,
@@ -29,9 +29,6 @@ export default class Jira extends Base {
 					photo: `${base}/secure/useravatar?ownerId=${fields.assignee.name}`,
 				},
 			],
-			type: fields.issuetype.name,
-			project: fields.project.key,
-			summary: fields.summary,
 			description: renderedFields.description,
 		}));
 	}
