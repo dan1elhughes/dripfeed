@@ -2,7 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import bindMethods from 'yaab';
 
-import { StyledPanel, Overlay, StyledPullTab } from './SettingsPanel.styles';
+import {
+	StyledPanel,
+	Overlay,
+	StyledPullTab,
+	PanelContainer,
+	StyledInput,
+	ButtonContainer,
+	StyledButton,
+	StyledCancelButton,
+} from './SettingsPanel.styles';
 
 import Account from '../Account/Account';
 import Modal from '../Modal/Modal';
@@ -59,9 +68,10 @@ export default class SettingsPanel extends React.Component {
 	}
 
 	closeModal() {
-		this.setState({
+		this.setState(({ form }) => ({
 			modalIsVisible: false,
-		});
+			form: { ...form, type: undefined },
+		}));
 	}
 
 	addAccount() {
@@ -105,74 +115,84 @@ export default class SettingsPanel extends React.Component {
 			<React.Fragment>
 				<StyledPanel isOpen={this.state.isOpen}>
 					<StyledPullTab onClick={this.toggleOpen} isOpen={this.state.isOpen} />
-					{this.state.settings.map((account, i) => (
+					<PanelContainer>
+						{this.state.settings.map((account, i) => (
+							<Account
+								key={i}
+								type={account.type}
+								name={account.name}
+								onClick={() => this.deleteAccount(account)}
+							/>
+						))}
+						<Header level={2}>Add accounts</Header>
 						<Account
-							key={i}
-							type={account.type}
-							name={account.name}
-							onClick={() => this.deleteAccount(account)}
+							type="jira"
+							onClick={() => this.showAccountAddModal('jira')}
 						/>
-					))}
-					<Header level={2}>Add/remove accounts</Header>
-					<Account
-						type="jira"
-						onClick={() => this.showAccountAddModal('jira')}
-					/>
-					<Account
-						type="bitbucket"
-						onClick={() => this.showAccountAddModal('bitbucket')}
-					/>
-					{this.state.settings.filter(account => account.type === 'forecast')
-						.length === 0 && (
 						<Account
-							type="forecast"
-							onClick={() => this.showAccountAddModal('forecast')}
+							type="bitbucket"
+							onClick={() => this.showAccountAddModal('bitbucket')}
 						/>
-					)}
-					<button onClick={this.save}>Save</button>
-					<Header level={2}>Settings</Header>
-					<ToggleContainer>
-						<Toggle
-							id="theme-toggler"
-							checked={this.props.theme.isDarkMode}
-							onChange={e => this.props.onThemeChange(e.target.checked)}
-							icons={false}
-						/>
-						<label htmlFor="theme-toggler">Theme</label>
-					</ToggleContainer>
+						{this.state.settings.filter(account => account.type === 'forecast')
+							.length === 0 && (
+							<Account
+								type="forecast"
+								onClick={() => this.showAccountAddModal('forecast')}
+							/>
+						)}
+						<button onClick={this.save}>Save</button>
+						<Header level={2}>Settings</Header>
+						<ToggleContainer>
+							<Toggle
+								id="theme-toggler"
+								checked={this.props.theme.isDarkMode}
+								onChange={e => this.props.onThemeChange(e.target.checked)}
+								icons={false}
+							/>
+							<label htmlFor="theme-toggler">Theme</label>
+						</ToggleContainer>
+					</PanelContainer>
 				</StyledPanel>
 				<Overlay isOpen={this.state.isOpen} />
-				<Modal isVisible={this.state.modalIsVisible}>
+				<Modal
+					isVisible={this.state.modalIsVisible}
+					type={this.state.form.type}
+				>
 					<Header level={2} centered={true}>
 						Add account
 					</Header>
-					<input
+					<StyledInput
 						onChange={this.handleFormChange}
 						type="text"
 						name="name"
 						placeholder="Name"
 					/>
-					<input
+					<StyledInput
 						onChange={this.handleFormChange}
 						type="text"
 						name="base"
 						placeholder="API base"
 					/>
-					<input
+					<StyledInput
 						onChange={this.handleFormChange}
 						type="text"
 						name="username"
 						placeholder="Username"
 					/>
-					<input
+					<StyledInput
 						onChange={this.handleFormChange}
 						type="password"
 						name="password"
 						placeholder="Password"
 					/>
-					<button onClick={this.addAccount}>Add account</button>
-					<button onClick={this.closeModal}>Cancel</button>
+					<ButtonContainer>
+						<StyledButton onClick={this.addAccount}>Add account</StyledButton>
+						<StyledCancelButton className="Cancel" onClick={this.closeModal}>
+							Cancel
+						</StyledCancelButton>
+					</ButtonContainer>
 				</Modal>
+				<Overlay isOpen={this.state.isOpen} />
 			</React.Fragment>
 		);
 	}

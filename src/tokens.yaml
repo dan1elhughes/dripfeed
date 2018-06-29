@@ -5,7 +5,7 @@ color:
     background:
         fill:
             dark: "#191D25"
-            light: "#FAFBFF"
+            light: "#EEEEEE"
         tile:
             dark: "#24292F"
             light: "#FFFFFF"
@@ -16,6 +16,8 @@ color:
             dark: "white"
             light: "black"
         dim: "#646464"
+    button:
+        negative: "#DB0011"
 font:
     heading:
         family: Open Sans, sans-serif
@@ -32,8 +34,9 @@ radius:
     medium: 10px
     small: 5px
 shadow:
-    dark: "rgba(0, 0, 0, 0)"
-    light: "#f0f3ff"
+    tile:
+        dark: "rgba(255,255,255,.14)"
+        light: "rgba(0,0,0,.14)"
 overlay:
     background:
         dark: "rgba(255, 255, 255, 0.3)"

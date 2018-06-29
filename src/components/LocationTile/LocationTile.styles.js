@@ -11,6 +11,7 @@ export const StyledOfficeName = styled.p`
 export const StyledLocalTime = styled.h3`
 	color: var(--color-text-strong);
 	font-weight: normal;
+	margin-top: 0;
 `;
 
 export const StyledWeather = styled.p`

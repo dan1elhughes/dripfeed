@@ -2,14 +2,12 @@ import styled from 'styled-components';
 
 import theme from '../../theme';
 
-import chevron from './assets/SettingPanel-Chevron.png';
-
 export const width = 400;
 
 export const StyledPanel = styled.div`
-	background: #000000;
+	background-color: ${theme('color-background-tile')};
 	border-radius: 0 0 0 10px;
-	color: #ffffff;
+	color: ${theme('color-text-header')};
 	position: fixed;
 	top: 0;
 	right: 0;
@@ -17,25 +15,27 @@ export const StyledPanel = styled.div`
 	width: ${width}px;
 	padding: var(--spacing-large);
 	text-align: center;
-	transition: transform 0.5s;
+	transition: transform 0.5s, background-color 0.5s, color 0.5s;
 	transform: translateX(
 		${props =>
 			props.isOpen ? '0px' : `calc(${width}px + calc(var(--spacing-large)*2))`}
 	);
 	z-index: 2;
 	button {
-		background: #ffffff;
-		border: 0;
+		background: ${theme('color-background-tile')};
+		border: 1px solid ${theme('color-text-header')};
 		border-radius: 5px;
+		color: ${theme('color-text-header')};
 		font-size: 14px;
 		margin-bottom: var(--spacing-medium);
 		padding: var(--spacing-medium);
 		text-transform: uppercase;
-		transition: background 0.25s, color 0.25s;
+		transition: background 0.25s, color 0.25s, border 0.5s;
 		width: 100%;
 		&:hover {
 			background: var(--color-text-positive);
-			color: #ffffff;
+			border: 1px solid var(--color-text-positive);
+			color: var(--color-white);
 			cursor: pointer;
 		}
 	}
@@ -56,9 +56,11 @@ export const Overlay = styled.div`
 `;
 
 export const StyledPullTab = styled.div`
-	background-color: #000000;
+	background-color: ${theme('color-background-tile')};
 	border-radius: 10px 0 0 10px;
-	color: #ffffff;
+	box-shadow: 0 0 ${props => (props.isOpen ? '-4px' : '4px')} 0
+		${theme('shadow-tile')};
+	color: ${theme('color-text-header')};
 	cursor: pointer;
 	position: absolute;
 	left: -50px;
@@ -66,16 +68,69 @@ export const StyledPullTab = styled.div`
 	width: 30px;
 	height: 30px;
 	padding: 10px;
-	top: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	transition: background-color 0.5s, box-shadow 0.25s;
 	&:after {
-		background: url(${chevron}) no-repeat 50% 50% #000000;
-		background-size: 50%;
-		content: '.';
+		color: ${theme('color-text-header')};
+		content: '<';
 		display: block;
-		transition: transform 0.5s;
-		transform: rotate(${props => (props.isOpen ? '180deg' : '0deg')});
-		text-indent: -9999px;
+		transition: transform 0.5s, color 0.5s;
+		transform: rotate(${props => (props.isOpen ? '-180deg' : '0deg')});
+		transform-origin: center;
 		height: 100%;
 		width: 100%;
+		line-height: 0.75em;
 	}
+`;
+
+export const PanelContainer = styled.div`
+	height: 100%;
+	overflow-y: auto;
+`;
+
+export const StyledInput = styled.input`
+	background: transparent;
+	border: 0;
+	border-bottom: 1px solid var(--color-white);
+	color: var(--color-white);
+	line-height: 1.25em;
+	margin-bottom: var(--spacing-medium);
+	padding: var(--spacing-small) var(--spacing-small) var(--spacing-small) 0;
+	width: 100%;
+	&::placeholder {
+		color: var(--color-white);
+	}
+`;
+
+export const StyledButton = styled.button`
+	background: transparent;
+	border: 1px solid var(--color-white);
+	border-radius: 5px;
+	color: var(--color-white);
+	font-size: 14px;
+	margin-bottom: var(--spacing-medium);
+	padding: var(--spacing-medium);
+	text-transform: uppercase;
+	transition: background 0.25s, color 0.25s, border 0.5s;
+	&:hover {
+		background: var(--color-text-positive);
+		border: 1px solid var(--color-text-positive);
+		color: var(--color-white);
+		cursor: pointer;
+	}
+`;
+
+export const StyledCancelButton = StyledButton.extend`
+	&:hover {
+		background: var(--color-button-negative);
+		border: 1px solid var(--color-button-negative);
+		color: var(--color-white);
+		cursor: pointer;
+	}
+`;
+
+export const ButtonContainer = styled.div`
+	display: flex;
+	justify-content: space-between;
 `;
