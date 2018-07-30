@@ -16,7 +16,7 @@
 		"react-dom": "^16.3.1",
 		"react-scripts": "1.1.4",
 		"styled-components": "^3.2.5",
-		"tay": "^2.1.0",
+		"tay": "^2.3.0",
 		"weathericons": "^2.1.0",
 		"yaab": "^0.2.0"
 	},
